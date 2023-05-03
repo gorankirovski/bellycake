@@ -91,7 +91,7 @@ body{
     right:15%;
     animation-delay: .3s;
 }
-.wrapper span{
+.loaderBG span{
     position: absolute;
     width: 70vh;
     top:75px;
