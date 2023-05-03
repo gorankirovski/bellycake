@@ -1,0 +1,13 @@
+.cookbook {
+    display: flex;
+    flex-direction: row;
+    color: white;
+    position: relative;
+}
+.cookbookCategoryBox {
+    background-color: rgb(38, 45, 71);
+    width: 20%;
+    position: sticky;
+    top: 0;
+    left: 0;
+}
