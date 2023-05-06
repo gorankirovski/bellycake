@@ -33,7 +33,9 @@ const Payment = () => {
 
   useEffect(() => {
     if (error) {
-      toast.error(error);
+      toast.error(error, {
+        className: "myToast",
+      });
       dispatch(clearErrors());
     }
   }, [dispatch, toast, error]);
@@ -81,7 +83,9 @@ const Payment = () => {
         callback: (response) => {
            console.log('Payment response:', response);
       if (response.error) {
-        toast.error(response.error.message);
+        toast.error(response.error.message, {
+          className: "myToast",
+        });
       } else {
         // The payment is processed or not
         if (response.status === 'successful') {
@@ -95,7 +99,9 @@ const Payment = () => {
           localStorage.removeItem('cartItems')
           navigate("/success");
         } else {
-          toast.error("There is some issue while payment processing");
+          toast.error("There is some issue while payment processing", {
+            className: "myToast",
+          });
         }
       }
           closePaymentModal() // this will close the modal programmatically

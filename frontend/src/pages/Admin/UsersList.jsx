@@ -22,12 +22,16 @@ const UsersList = () => {
     dispatch(allUsers());
 
     if (error) {
-      toast.error(error);
+      toast.error(error, {
+        className: "myToast",
+      });
       dispatch(clearErrors());
     }
 
     if (isDeleted) {
-      toast.success('User deleted successfully');
+      toast.success('User deleted successfully', {
+        className: "myToast",
+      });
       navigate('/admin/users');
       dispatch({ type: DELETE_USER_RESET })
   }

@@ -1,9 +1,9 @@
 import React from "react";
 import PageHader from "../PageHader/PageHader";
-import { MdDeleteOutline } from "react-icons/md";
+import { MdOutlineShoppingCartCheckout } from "react-icons/md";
 
 import "./Cart.css";
-import { AiOutlineMinusCircle, AiOutlinePlusCircle } from "react-icons/ai";
+import { FaMinus, FaPlus, FaTimes } from "react-icons/fa";
 import MetaData from "../MetaData";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
@@ -42,7 +42,7 @@ const Cart = () => {
       <MetaData title={`${cartItems.length} Product in cart`} />
       <PageHader title="Cart" />
 
-      <section id="cart" className="section__p1">
+      <section id="cart" className="">
         <section className="h-100 gradient-custom">
           <div className="container py-5">
             <div className="row d-flex justify-content-center my-4">
@@ -52,7 +52,7 @@ const Cart = () => {
                     {cartItems.length === 0 ? (
                       <h5 className="mb-0">No items</h5>
                     ) : (
-                      <h5 className="mb-0">Cart - {cartItems.length} items</h5>
+                      <h5 className="mb-0">Cart - {cartItems.length} item(s)</h5>
                     )}
                   </div>
                   <div className="card-body">
@@ -60,29 +60,29 @@ const Cart = () => {
                     {cartItems.map((item, idx) => (
                       <div  key={idx}>
                         <div className="row">
-                          <div className="col-lg-3 col-md-12 mb-4 mb-lg-0">
+                          <div className="cartItemBoxForDetails">
                             {/* <!-- Image --> */}
-                            <Link to={`/product/${item.product}`}>
-                              <div
-                                className="bg-image hover-overlay hover-zoom ripple rounded"
-                                data-mdb-ripple-color="light"
-                              >
-                                <img src={item.image} className="w-50" />
+                            <div className="cartItemDetailsBox1">
+                            <Link to={`/product/${item.product}`} className="cartItemImgBoxLink">
+                              <div className="cartItemImgBox">
+                                <img src={item.image} />
                               </div>
                             </Link>
                             {/* <!-- Image --> */}
-                          </div>
-
-                          <div className="col-lg-5 col-md-6 mb-4 mb-lg-0 d-flex justify-content-around align-content-center">
                             {/* <!-- Data --> */}
-                            <Link to={`/product/${item.product}`} style={{textDecoration: 'none'}}>
-                              <p>
-                                <strong className="itemNameCart">{item.name}</strong>
+                            <Link to={`/product/${item.product}`} style={{textDecoration: 'none'}} className="itemNameCart">
+                              <p className="text-black">
+                                <b>{item.name}</b>
                               </p>
+                              <p className="text-black">₦‎{item.price}</p>
                             </Link>
+                            </div>
+                            
+                            {/* <!-- Quantity --> */}
+                            <div className="cartItemDetailsBox">
                             <button
                               type="button"
-                              className="btn btn-sm me-1 mb-2 deleteCart"
+                              className="deleteCart cartControlPlugs"
                               data-mdb-toggle="tooltip"
                               title="Remove item"
                               style={{ background: "#f13333" }}
@@ -90,48 +90,32 @@ const Cart = () => {
                                 removeCartItemHandler(item.product)
                               }
                             >
-                              <MdDeleteOutline
-                                style={{
-                                  color: "#fff",
-                                  fontSize: "2rem",
-                                  fontWeight: "bold",
-                                }}
-                              />
+                              <FaTimes />
                             </button>
                             {/* <!-- Data --> */}
-                          </div>
-
-                          <div className="col-lg-4 col-md-6 mb-4 mb-lg-0">
-                            {/* <!-- Quantity --> */}
-                            <div
-                              className="d-flex mb-4"
-                              style={{ maxWidth: "300px" }}
-                            >
+                            <div className="cartItemsControllers">
                               <button
-                                className="btn  px-3 me-2 quan__min"
+                                className="cartControlPlugs quan__min"
                                 onClick={() =>
                                   decreaseQty(item.product, item.quantity)
                                 }
                               >
-                                <AiOutlineMinusCircle />
+                                <FaMinus />
                               </button>
 
-                              <div className="form-outline quan__pizza">
+                              <div className="quantityInput">
                                 <input
                                   id="form1"
                                   name="quantity"
                                   value={item.quantity}
                                   readOnly
                                   type="number"
-                                  className="form-control quan__input ml-2"
+                                  className="form-control quantityInputField"
                                 />
-                                <label className="form-label quan" htmlFor="form1">
-                                  Quantity
-                                </label>
                               </div>
 
                               <button
-                                className="btn  px-3 me-2 quan__plus"
+                                className="cartControlPlugs quan__plus"
                                 onClick={() =>
                                   increaseQty(
                                     item.product,
@@ -140,17 +124,15 @@ const Cart = () => {
                                   )
                                 }
                               >
-                                <AiOutlinePlusCircle />
+                                <FaPlus />
                               </button>
+                            </div>
                             </div>
                             {/* <!-- Quantity --> */}
 
-                            {/* <!-- Price --> */}
-                            <p className="text-start text-md-center">
-                              <strong>${item.price}</strong>
-                            </p>
-                            {/* <!-- Price --> */}
                           </div>
+
+
                         </div>
                         <hr className="my-4" />
                       </div>
@@ -160,38 +142,32 @@ const Cart = () => {
                 </div>
               </div>
               <div className={`col-md-4 `}>
-              <div className="card mb-4 orderSummaryCart">
+              <div className="card mb-0 orderSummaryCart">
                 <div className="card-header py-3">
                   <h5 className="mb-0">Order Summary</h5>
                 </div>
+
                 <div className="card-body">
-                  <ul className="list-group list-group-flush ">
-                    <li className="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0 ul">
-                     <h4> {cartItems.length}  (Units)</h4>
-                      <span className="unit__number" style={{marginTop: '15px', fontWeight: 'bold'}}>{cartItems.reduce((acc, item) => (acc + Number(item.quantity)), 0)} items</span>
-                    </li>
-                    <li className="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
-                      <div className="mt-5">
-                        <strong>Total amount</strong>
-                        <strong>
-                          <p className="mb-0"></p>
-                        </strong>
-                      </div>
-                      <span className="unit__number mt-5">
-                        <strong style={{marginTop: '25px'}}>${cartItems.reduce((acc, item) => acc + item.quantity * item.price, 0).toFixed(2)}</strong>
-                      </span>
-                    </li>
-                  </ul>
+                  <div className="orderDetails">
+                    <div className="orderUnits d-flex flex-row justify-content-between">
+                      <p className="orderUnitsText text-black"> {cartItems.length}  Unit(s)</p>
+                      <p className="orderUnitsAmount text-black">{cartItems.reduce((acc, item) => (acc + Number(item.quantity)), 0)} items</p>
+                    </div>
+
+                    <div className="orderTotalPrice d-flex flex-row justify-content-between">
+                        <p className="orderPriceText text-black">Total amount</p>
+                        <p className="orderPriceAmount text-black">₦‎{cartItems.reduce((acc, item) => acc + item.quantity * item.price, 0).toFixed(2)}</p>
+                    </div>
+                  </div>
                   
                   {cartItems.length === 0 ? '' : <button
                     type="button"
-                    className={`btns`}
-                    style={{marginLeft: '90px', background: '#104d1a', color: '#fff'}}
+                    className={`btns checkOutBtn`}
+                    style={{background: '#327a3e', color: '#fff'}}
                     onClick={checkoutHandler}
                   >
-                    Checkout
+                    Checkout&nbsp;<MdOutlineShoppingCartCheckout />
                   </button>}
-                  
                 </div>
               </div>
             </div>

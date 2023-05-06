@@ -36,7 +36,9 @@ const Register = () => {
     }
 
     if (error) {
-      toast.error(error);
+      toast.error(error, {
+        className: "myToast",
+      });
       dispatch(clearErrors());
     }
   }, [dispatch, isAuthenticated, toast, error]);

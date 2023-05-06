@@ -32,6 +32,8 @@ import {
     import axios from "axios";
     // setting up config file
     const { URL_API } = require('../config/config.json')
+    // Get user token
+    const userToken = document.cookie.split('; ').find(row => row.startsWith('token=')).split('=')[1];
 
 export const getRecipes =
   (keyword = "", currentPage = 1, price, category, rating = 0) =>
@@ -61,12 +63,17 @@ export const newRecipe = (recipeData) => async (dispatch) => {
   try {
     dispatch({ type: NEW_RECIPE_REQUEST });
 
+    let token = ''
+    if (userToken) {
+      token = userToken
+    }
     const config = {
       headers: {
         "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
       },
     };
-
+    
     const { data } = await axios.post(
       `${URL_API}/api/v1/admin/recipe/new`,
       recipeData,
@@ -88,9 +95,20 @@ export const newRecipe = (recipeData) => async (dispatch) => {
 // Delete recipe (Admin)
 export const deleteRecipe = (id) => async (dispatch) => {
   try {
+    let token = ''
+    if (userToken) {
+      token = userToken
+    }
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+    };
+    
     dispatch({ type: DELETE_RECIPE_REQUEST });
 
-    const { data } = await axios.delete(`${URL_API}/api/v1/admin/recipe/${id}`);
+    const { data } = await axios.delete(`${URL_API}/api/v1/admin/recipe/${id}`, config);
 
     dispatch({
       type: DELETE_RECIPE_SUCCESS,
@@ -109,12 +127,17 @@ export const updateRecipe = (id, recipeData) => async (dispatch) => {
   try {
     dispatch({ type: UPDATE_RECIPE_REQUEST });
 
+    let token = ''
+    if (userToken) {
+      token = userToken
+    }
     const config = {
       headers: {
         "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
       },
     };
-
+    
     const { data } = await axios.put(
       `${URL_API}/api/v1/admin/recipe/${id}`,
       recipeData,
@@ -135,9 +158,20 @@ export const updateRecipe = (id, recipeData) => async (dispatch) => {
 
 export const getRecipeDetails = (id) => async (dispatch) => {
   try {
+    let token = ''
+    if (userToken) {
+      token = userToken
+    }
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+    };
+
     dispatch({ type: RECIPE_DETAILS_REQUEST });
 
-    const { data } = await axios.get(`${URL_API}/api/v1/recipe/${id}`);
+    const { data } = await axios.get(`${URL_API}/api/v1/recipe/${id}`, config);
 
     dispatch({
       type: RECIPE_DETAILS_SUCCESS,
@@ -155,9 +189,14 @@ export const newReview = (reviewData) => async (dispatch) => {
   try {
     dispatch({ type: NEW_RECIPE_REVIEW_REQUEST });
 
+    let token = ''
+    if (userToken) {
+      token = userToken
+    }
     const config = {
       headers: {
         "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
       },
     };
 
@@ -177,9 +216,19 @@ export const newReview = (reviewData) => async (dispatch) => {
 
 export const getAdminRecipes = () => async (dispatch) => {
   try {
+    let token = ''
+    if (userToken) {
+      token = userToken
+    }
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+    };
     dispatch({ type: ADMIN_RECIPES_REQUEST });
 
-    const { data } = await axios.get(`${URL_API}/api/v1/admin/recipes`);
+    const { data } = await axios.get(`${URL_API}/api/v1/admin/recipes`, config);
 
     dispatch({
       type: ADMIN_RECIPES_SUCCESS,
@@ -196,9 +245,19 @@ export const getAdminRecipes = () => async (dispatch) => {
 // Get recipe reviews
 export const getRecipeReviews = (id) => async (dispatch) => {
   try {
+    let token = ''
+    if (userToken) {
+      token = userToken
+    }
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+    };
     dispatch({ type: GET_RECIPE_REVIEWS_REQUEST });
 
-    const { data } = await axios.get(`${URL_API}/api/v1/reviews?id=${id}`);
+    const { data } = await axios.get(`${URL_API}/api/v1/reviews?id=${id}`, config);
 
     dispatch({
       type: GET_RECIPE_REVIEWS_SUCCESS,
@@ -215,10 +274,20 @@ export const getRecipeReviews = (id) => async (dispatch) => {
 // Delete recipe review
 export const deleteReview = (id, recipeId) => async (dispatch) => {
   try {
+    let token = ''
+    if (userToken) {
+      token = userToken
+    }
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+    };
     dispatch({ type: DELETE_RECIPE_REVIEW_REQUEST });
 
     const { data } = await axios.delete(
-      `${URL_API}/api/v1/reviews?id=${id}&recipeId=${recipeId}`
+      `${URL_API}/api/v1/reviews?id=${id}&recipeId=${recipeId}`, config
     );
 
     dispatch({

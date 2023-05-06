@@ -18,12 +18,12 @@ const Banner = () => {
         ],
     typeSpeed: 50,
     backSpeed: 50,
-    backDelay: 5000,
+    // backDelay: 2000,
     loop: true,
-    showCursor: true,
-    cursorChar: "|",
+    // showCursor: true,
+    // cursorChar: "|",
     // smartBackspace: true,
-    cursorBlinking: true,
+    // cursorBlinking: true,
     // you can also set a custom blinking rate in ms
     // cursorBlinkSpeed: 500
   };

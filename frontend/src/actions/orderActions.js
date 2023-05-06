@@ -23,17 +23,24 @@ import {
 } from "../constants/orderConstants";
 // setting up config file
 const { URL_API } = require('../config/config.json')
+// Get user token
+const userToken = document.cookie.split('; ').find(row => row.startsWith('token=')).split('=')[1];
 
 export const createOrder = (order) => async (dispatch, getState) => {
   try {
     dispatch({ type: CREATE_ORDER_REQUEST });
 
+    let token = ''
+    if (userToken) {
+      token = userToken
+    }
     const config = {
       headers: {
         "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
       },
     };
-
+    
     const { data } = await axios.post(`${URL_API}/api/v1/order/new`, order, config);
 
     dispatch({
@@ -51,9 +58,20 @@ export const createOrder = (order) => async (dispatch, getState) => {
 // Get curretly logged in user orders
 export const myOrders = () => async (dispatch) => {
   try {
+    let token = ''
+    if (userToken) {
+      token = userToken
+    }
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+    };
+    
     dispatch({ type: MY_ORDERS_REQUEST });
 
-    const { data } = await axios.get(`${URL_API}/api/v1/orders/me`);
+    const { data } = await axios.get(`${URL_API}/api/v1/orders/me`, config);
 
     dispatch({
       type: MY_ORDERS_SUCCESS,
@@ -70,9 +88,20 @@ export const myOrders = () => async (dispatch) => {
 // Get order details
 export const getOrderDetails = (id) => async (dispatch) => {
   try {
+    let token = ''
+    if (userToken) {
+      token = userToken
+    }
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+    };
+    
     dispatch({ type: ORDER_DETAILS_REQUEST });
 
-    const { data } = await axios.get(`${URL_API}/api/v1/order/${id}`);
+    const { data } = await axios.get(`${URL_API}/api/v1/order/${id}`, config);
 
     dispatch({
       type: ORDER_DETAILS_SUCCESS,
@@ -89,9 +118,20 @@ export const getOrderDetails = (id) => async (dispatch) => {
 // Get all orders - ADMIN
 export const allOrders = () => async (dispatch) => {
   try {
+    let token = ''
+    if (userToken) {
+      token = userToken
+    }
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+    };
+    
     dispatch({ type: ALL_ORDERS_REQUEST });
 
-    const { data } = await axios.get(`${URL_API}/api/v1/admin/orders`);
+    const { data } = await axios.get(`${URL_API}/api/v1/admin/orders`, config);
 
     dispatch({
       type: ALL_ORDERS_SUCCESS,
@@ -110,12 +150,17 @@ export const updateOrder = (id, orderData) => async (dispatch) => {
   try {
     dispatch({ type: UPDATE_ORDER_REQUEST });
 
+    let token = ''
+    if (userToken) {
+      token = userToken
+    }
     const config = {
       headers: {
         "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
       },
     };
-
+    
     const { data } = await axios.put(
       `${URL_API}/api/v1/admin/order/${id}`,
       orderData,
@@ -137,9 +182,20 @@ export const updateOrder = (id, orderData) => async (dispatch) => {
 // Delete order
 export const deleteOrder = (id) => async (dispatch) => {
   try {
+    let token = ''
+    if (userToken) {
+      token = userToken
+    }
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+    };
+    
     dispatch({ type: DELETE_ORDER_REQUEST });
 
-    const { data } = await axios.delete(`${URL_API}/api/v1/admin/order/${id}`);
+    const { data } = await axios.delete(`${URL_API}/api/v1/admin/order/${id}`, config);
 
     dispatch({
       type: DELETE_ORDER_SUCCESS,

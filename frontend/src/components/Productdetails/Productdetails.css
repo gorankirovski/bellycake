@@ -61,6 +61,7 @@
 
 .ratings {
   cursor: pointer;
+  width: fit-content;
 }
 
 .review_box {

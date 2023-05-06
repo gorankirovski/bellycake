@@ -2,6 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { MetaData } from "../../../allComponents";
 
 import { RiLockPasswordLine } from "react-icons/ri";
+import { BsFillEyeFill, BsFillEyeSlashFill } from "react-icons/bs";
 
 import { useDispatch, useSelector } from "react-redux";
 import { clearErrors, updatePassword } from "../../../../actions/userActions";
@@ -12,6 +13,7 @@ import { useEffect, useState } from "react";
 const UpdatePassword = () => {
   const [oldPassword, setOldPassword] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -19,12 +21,16 @@ const UpdatePassword = () => {
   useEffect(() => {
     
     if (error) {
-      toast.error(error);
+      toast.error(error, {
+        className: "myToast",
+      });
       dispatch(clearErrors());
     }
     
     if (isUpdated) {
-      toast.success("Password updated successfully");
+      toast.success("Password updated successfully", {
+        className: "myToast",
+      });
 
       navigate("/me");
 
@@ -33,6 +39,10 @@ const UpdatePassword = () => {
       });
     }
   }, [dispatch, toast, error, navigate, isUpdated]);
+
+  const toggleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -43,38 +53,39 @@ const UpdatePassword = () => {
 
     dispatch(updatePassword(formData));
   };
+
   return (
     <>
       <MetaData title={"Change Password"} />
-      <h2 className="title">Change Password</h2>
-      <div className="profile__box">
         <div className="LOGIN_BOX">
           <form
-            className="login register Update_BOX"
+            className="login"
             onSubmit={submitHandler}
             encType="multipart/form-data"
           >
-           <h2 style={{marginBottom: '20px'}}><RiLockPasswordLine className="icon" /> Reset Your Password </h2>
+            <p><RiLockPasswordLine className="icon" /> Update Your Password </p>
             <div className="form-group">
               <input
-                type="password"
+                type={showPassword ? "text" : "password"}
                 id="old_password_field"
-                className="form-control"
                 placeholder="Old Password"
                 value={oldPassword}
                 onChange={(e) => setOldPassword(e.target.value)}
               />
             </div>
 
-            <div className="form-group">
+            <div className="form-group withPassword">
               <input
-                type="password"
+                type={showPassword ? "text" : "password"}
                 id="new_password_field"
-                className="form-control"
+                className="borderlessPwd"
                 placeholder="New Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
+              <button type="button" onClick={toggleShowPassword} className="showPassword">
+                {showPassword ? <BsFillEyeSlashFill /> : <BsFillEyeFill />}
+              </button>
             </div>
 
             <input
@@ -83,18 +94,7 @@ const UpdatePassword = () => {
               disabled={loading ? true : false}
             />
           </form>
-
-          <img
-            src="https://res.cloudinary.com/hateybazarey/image/upload/v1675333274/password_h0f0qr.avif"
-            width="520"
-            height="440"
-            className="video__Login"
-            alt="forgot password image"
-            style={{marginLeft: '25px'}}
-            draggable="false"
-          />
         </div>
-      </div>
     </>
   );
 };

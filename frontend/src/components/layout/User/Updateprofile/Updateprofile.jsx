@@ -35,12 +35,16 @@ const Updateprofile = () => {
     }
 
     if (error) {
-      toast.error(error);
+      toast.error(error, {
+        className: "myToast",
+      });
       dispatch(clearErrors());
     }
 
     if (isUpdated) {
-      toast.success("profile updated successfully");
+      toast.success("profile updated successfully", {
+        className: "myToast",
+      });
       dispatch(loadUser());
       navigate("/me");
       dispatch({

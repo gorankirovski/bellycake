@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { BsPersonBadge } from "react-icons/bs";
+import { IoPersonCircleSharp } from "react-icons/io5";
 import { BsPersonFillGear } from "react-icons/bs";
 import { BsFillBagCheckFill } from "react-icons/bs";
 import { AiOutlineHeart } from "react-icons/ai";
@@ -27,7 +27,9 @@ const User = () => {
   }
   const logoutHandler = () => {
     dispatch(logout());
-    toast.success('Logged out successfully')
+    toast.success('Logged out successfully', {
+      className: "myToast",
+    });
     navigate('/login')
   };
   return (
@@ -99,7 +101,12 @@ const User = () => {
           </>
         ) : (
           !loading && (
-            <Link to="/login" id="loginSignup">My Account</Link>
+            <>
+            <Link to="/login" className="loginSignup mb-0">
+            <h4 className="accountIconTxt mb-0">My Account</h4>
+            <span className="accountIcon"><IoPersonCircleSharp /></span>
+            </Link>
+            </>
           )
         )}
       </div>

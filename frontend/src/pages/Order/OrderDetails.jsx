@@ -30,7 +30,9 @@ const OrderDetails = () => {
     dispatch(getOrderDetails(match.id));
 
     if (error) {
-      toast.error(error);
+      toast.error(error, {
+        className: "myToast",
+      });
       dispatch(clearErrors());
     }
   }, [dispatch, toast, error, match.id]);
@@ -130,7 +132,7 @@ const OrderDetails = () => {
                   </div>
 
                   <div className="col-4 col-lg-2 mt-4 mt-lg-0">
-                    <p>${item.price}</p>
+                    <p>₦‎{item.price}</p>
                   </div>
 
                   <div className="col-4 col-lg-3 mt-4 mt-lg-0">

@@ -7,15 +7,19 @@ import {
 } from "../../components/allComponents";
 import { getProducts } from "../../actions/productActions";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 // import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
 import Pagination from "react-js-pagination";
+import { FaTags } from "react-icons/fa";
+import { IoStorefront } from "react-icons/io5";
 import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import "./Featureproduct.css";
 import "./Home.css";
 import { useParams } from "react-router-dom";
 import Smallbanner from "../../components/layout/Smallbanner";
+import Specialbakes from "./Specialbakes";
 
 // const { createSliderWithTooltip } = Slider;
 // const Range = createSliderWithTooltip(Slider.Range);
@@ -52,7 +56,9 @@ const Home = () => {
   const keyword = params.keyword;
   useEffect(() => {
     if (error) {
-      toast.error(error);
+      toast.error(error, {
+        className: "myToast",
+      });
     }
     dispatch(getProducts(keyword, currentPage, price, category, rating));
     // eslint-disable-next-line 
@@ -153,15 +159,15 @@ const Home = () => {
           ) : (
             <>
             <Cta />
-            <div id="product1" className="section__p1">
-              <h2 style={{ color: "grey" }}>
-                {keyword ? `${keyword.toLocaleUpperCase()}` : "Best sellerss"}
+            <div id="product1" className="section__p1 mt-4">
+              <h2 style={{ color: "grey" }} className="mt-4">
+                {keyword ? `${keyword.toLocaleUpperCase()}` : "Best sellers"}
               </h2>
               <div
                 to="/products"
                 className="view__product"
                 style={{ marginTop: "20px" }}
-              >
+              > <span className="badgeBox popuBadge"><FaTags />&nbsp;Popular</span>
                 <div className="pro__container">
                   {products &&
                     products.map((product) => (
@@ -169,7 +175,13 @@ const Home = () => {
                     ))}
                 </div>
               </div>
+              <div className="moreProBox">
+                <Link to="/shop" className="moreProducts">
+                  More Products <IoStorefront />
+                </Link>
+              </div>
             </div>
+          
             </>
           )}
 
@@ -189,6 +201,9 @@ const Home = () => {
               />
             </div>
           )}
+
+
+          <Specialbakes />
 
           <Smallbanner />
         </>

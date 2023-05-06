@@ -1,12 +1,17 @@
-import React from 'react'
+import {React, useEffect} from 'react'
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from 'react-router-dom'
 import MetaData from '../../MetaData'
 import './Success.css'
 import { clearCart } from '../../../../actions/cartActions';
 const Success = () => {
+
   const dispatch = useDispatch();
-    dispatch(clearCart())
+
+  useEffect(() => {
+    dispatch(clearCart());
+  }, []);
+
   return (
     <>
     <MetaData title={`Payment Successful`}/>

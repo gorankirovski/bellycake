@@ -43,6 +43,8 @@ import store from "./store";
 import axios from "axios";
 
 import { useSelector } from "react-redux";
+import { ScrollToTop } from "./components/layout/Loader/scroll";
+import Specialbakes from "./pages/Home/Specialbakes";
 
 // Payment
 
@@ -58,9 +60,11 @@ function App() {
       <Toaster position="top-center" reverseOrder={false} />
       <BrowserRouter>
         <Header />
+        <ScrollToTop />
         <Routes>
           <Route path="/" element={<Home />} exact />
           <Route path="/shop" element={<Shop />} exact />
+          <Route path="/special" element={<Specialbakes />} exact />
           <Route path="/cookbook" element={<Cookbook />} exact />
           <Route path="/search/:keyword" element={<Home />} />
           <Route path="/product/:id" element={<Productdetails />} exact />

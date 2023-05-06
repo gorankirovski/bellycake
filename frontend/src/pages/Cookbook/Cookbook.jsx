@@ -30,7 +30,9 @@ const Cookbook = () => {
       const keyword = params.keyword;
       useEffect(() => {
         if (error) {
-          toast.error(error);
+          toast.error(error, {
+        className: "myToast",
+      });
         }
         dispatch(
           getRecipes(keyword, currentPage, price, category, rating)
@@ -107,7 +109,7 @@ const Cookbook = () => {
                                   ({recipe.numOfReviews} review)
                                 </span>
                               </div>
-                              <h4>${recipe.price}</h4>
+                              <h4>₦‎{recipe.price}</h4>
                             </div>
                           </Link>
                         </div>

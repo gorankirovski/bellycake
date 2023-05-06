@@ -21,7 +21,9 @@ const ProductReviews = () => {
     useEffect(() => {
 
         if (error) {
-            toast.error(error);
+            toast.error(error, {
+        className: "myToast",
+      });
             dispatch(clearErrors())
             return;
         }
@@ -37,7 +39,9 @@ const ProductReviews = () => {
         }
 
         if (isDeleted) {
-            toast.success('Review deleted successfully');
+            toast.success('Review deleted successfully', {
+                className: "myToast",
+              });
             dispatch({ type: DELETE_REVIEW_RESET })
         }
 

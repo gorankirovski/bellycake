@@ -27,7 +27,6 @@ import {
   userDetailsReducer,
 } from "./reducers/userReducers";
 import { cartReducer } from "./reducers/cartReducers";
-
 import {
   newOrderReducer,
   myOrdersReducer,
@@ -35,6 +34,7 @@ import {
   orderDetailsReducer,
   orderReducer,
 } from "./reducers/orderReducers";
+import { imageReducer } from "./reducers/imageReducers";
 
 const reducer = combineReducers({
   products: productsReducer,
@@ -55,6 +55,7 @@ const reducer = combineReducers({
   userDetails: userDetailsReducer,
   forgotPassword: forgotPasswordReducer,
   cart: cartReducer,
+  compressImage: imageReducer,
   newOrder: newOrderReducer,
   myOrders: myOrdersReducer,
   allOrders: allOrdersReducer,

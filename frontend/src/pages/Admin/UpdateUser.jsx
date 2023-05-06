@@ -43,7 +43,9 @@ const UpdateUser = () => {
     }
 
     if (isUpdated) {
-      toast.success("User updated successfully");
+      toast.success("User updated successfully", {
+        className: "myToast",
+      });
 
       navigate("/admin/users");
 

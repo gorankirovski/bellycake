@@ -22,12 +22,16 @@ const OrdersList = () => {
     dispatch(allOrders());
 
     if (error) {
-      toast.error(error);
+      toast.error(error, {
+        className: "myToast",
+      });
       dispatch(clearErrors());
     }
 
     if (isDeleted) {
-      toast.success("Order deleted successfully");
+      toast.success("Order deleted successfully", {
+        className: "myToast",
+      });
       navigate("/admin/orders");
       dispatch({ type: DELETE_ORDER_RESET });
     }

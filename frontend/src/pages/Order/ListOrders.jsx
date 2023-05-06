@@ -19,7 +19,9 @@ const ListOrders = () => {
     dispatch(myOrders());
 
     if (error) {
-      toast.error(error);
+      toast.error(error, {
+        className: "myToast",
+      });
       dispatch(clearErrors());
     }
   }, [dispatch, toast, error]);

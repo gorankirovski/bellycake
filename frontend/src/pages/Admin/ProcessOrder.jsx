@@ -36,12 +36,16 @@ const ProcessOrder = () => {
     dispatch(getOrderDetails(orderId));
 
     if (error) {
-      toast.error(error);
+      toast.error(error, {
+        className: "myToast",
+      });
       dispatch(clearErrors());
     }
 
     if (isUpdated) {
-      toast.success("Order updated successfully");
+      toast.success("Order updated successfully", {
+        className: "myToast",
+      });
       dispatch({ type: UPDATE_ORDER_RESET });
     }
   }, [dispatch, toast, error, isUpdated, orderId]);
@@ -141,7 +145,7 @@ const ProcessOrder = () => {
                           </div>
 
                           <div className="col-4 col-lg-2 mt-4 mt-lg-0">
-                            <p>${item.price}</p>
+                            <p>₦‎{item.price}</p>
                           </div>
 
                           <div className="col-4 col-lg-3 mt-4 mt-lg-0">

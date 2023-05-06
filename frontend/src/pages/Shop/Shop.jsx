@@ -2,11 +2,12 @@ import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { getProducts } from "../../actions/productActions";
+import { MdOutlineHotelClass } from "react-icons/md";
 import "./Shop.css";
 import Pagination from "react-js-pagination";
-import { Loader, MetaData } from "../../components/allComponents";
+import { Loader, MetaData, Product } from "../../components/allComponents";
 
 const Shop = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -23,6 +24,7 @@ const Shop = () => {
   ];
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { loading, products, error, productsCount, resPerPage } = useSelector(
     (state) => state.products
   );
@@ -30,7 +32,9 @@ const Shop = () => {
   const keyword = params.keyword;
   useEffect(() => {
     if (error) {
-      toast.error(error);
+      toast.error(error, {
+        className: "myToast",
+      });
     }
     dispatch(
       getProducts(keyword, currentPage, price, category, rating)
@@ -44,6 +48,9 @@ const Shop = () => {
   const handleCategory = (value) => {
     if (value === "All") {
       return setCategory("")
+    }
+    if (value === "Special Bakes") {
+      return navigate("/special")
     }
     setCategory(value);
   };
@@ -61,9 +68,8 @@ const Shop = () => {
       {loading ? (
         <Loader />
       ) : (
-        <div className="section__p1">
+        <div className="shopSection">
           <div className="shop">
-            <div className="shop__category">
           <ul className="productCategories">
             {categories.map((category) => (
               <li
@@ -78,38 +84,16 @@ const Shop = () => {
               </li>
             ))}
           </ul>
-        </div>
             <div className="shop__products">
-              <div className="shop__single product" id="shop__product_1">
-                <div className="shop__pro_container">
+              <div
+                to="/products"
+                className="view__product"
+                style={{ marginTop: "20px" }}
+              > <span className="badgeBox popuBadge"><MdOutlineHotelClass />&nbsp;Hot Deals</span>
+                <div className="pro__container">
                   {products &&
                     products.map((product) => (
-                      <div className="shop__pro" key={product._id}>
-                        <Link
-                          to={`/product/${product._id}`}
-                          style={{ textDecoration: "none" }}
-                        >
-                          <img src={product.images[0].url} alt="" />
-                          <div className="shop__des">
-                            <span>{product.seller}</span>
-                            <h5>{product.name}</h5>
-                            <div className="star ratings">
-                              <div className="rating-outer">
-                                <div
-                                  className="rating-inner"
-                                  style={{
-                                    width: `${(product.ratings / 5) * 100}%`,
-                                  }}
-                                ></div>
-                              </div>
-                              <span id="no_of_reviews">
-                                ({product.numOfReviews} review)
-                              </span>
-                            </div>
-                            <h4>${product.price}</h4>
-                          </div>
-                        </Link>
-                      </div>
+                      <Product key={product._id} product={product} />
                     ))}
                 </div>
               </div>

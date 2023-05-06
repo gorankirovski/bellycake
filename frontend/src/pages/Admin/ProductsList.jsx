@@ -24,7 +24,9 @@ const ProductsList = () => {
         dispatch(getAdminProducts());
 
         if (error) {
-            toast.error(error);
+            toast.error(error, {
+        className: "myToast",
+      });
             dispatch(clearErrors())
         }
 
@@ -34,7 +36,9 @@ const ProductsList = () => {
         }
 
         if (isDeleted) {
-            toast.success('Product deleted successfully');
+            toast.success('Product deleted successfully', {
+                className: "myToast",
+              });
             navigate('/admin/products');
             dispatch({ type: DELETE_PRODUCT_RESET })
         }

@@ -69,18 +69,24 @@ const UpdateProduct = () => {
     }
 
     if (error) {
-      toast.error(error);
+      toast.error(error, {
+        className: "myToast",
+      });
       dispatch(clearErrors());
     }
 
     if (updateError) {
-      toast.error(updateError);
+      toast.error(updateError, {
+        className: "myToast",
+      });
       dispatch(clearErrors());
     }
 
     if (isUpdated) {
       navigate("/admin/products");
-      toast.success("Product updated successfully");
+      toast.success("Product updated successfully", {
+        className: "myToast",
+      });
       dispatch({ type: UPDATE_PRODUCT_RESET });
     }
   }, [

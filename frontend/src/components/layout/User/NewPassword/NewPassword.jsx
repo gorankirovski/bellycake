@@ -5,6 +5,7 @@ import {MetaData} from "../../../allComponents";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { resetPassword, clearErrors } from "../../../../actions/userActions";
+import { RiLockPasswordLine } from "react-icons/ri";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -61,21 +62,18 @@ const NewPassword = () => {
     <>
       <MetaData title={"New Password Reset"} />
 
-      <h2 className="title">Create New Password</h2>
-      <div className="profile__box" >
         <div className="LOGIN_BOX" >
           <form
-            className="login register Update_BOX"
+            className="login"
             onSubmit={submitHandler}
             encType="multipart/form-data"
-            style={{width: '420px'}}
           >
+            <p><RiLockPasswordLine className="icon" /> Reset Your Password </p>
 
             <div className="form-group">
               <input
                 type="password"
                 id="password_field"
-                className="form-control"
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -86,7 +84,6 @@ const NewPassword = () => {
               <input
                 type="password"
                 id="confirm_password_field"
-                className="form-control"
                 placeholder="Confirm Password"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
@@ -98,24 +95,7 @@ const NewPassword = () => {
               value="Set New Password"
             />
           </form>
-
-          <div className="LOGIN_BOX" style={{marginLeft: '5rem'}}>
-            <video
-              muted
-              autoPlay
-              loop
-              className="video__Login"
-              style={{width: '750px', height: '450px'}}
-            >
-              <source
-                src="https://res.cloudinary.com/hateybazarey/video/upload/v1675375055/animated_medium20211108-27044-jnczo0_f1ncg0.mp4"
-                type="video/mp4"
-              />
-              Your browser does not support the video please update the browser.
-            </video>
-            </div>
         </div>
-      </div>
     </>
   );
 };

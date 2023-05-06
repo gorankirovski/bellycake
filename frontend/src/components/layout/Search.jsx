@@ -1,7 +1,7 @@
 import React, { useState, } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { BiSearchAlt } from "react-icons/bi";
-import "../layout/Header/Header.css";
+import "./Header/Header.css";
 const Search = ({ history }) => {
 
     const [keyword, setKeyword] = useState('');

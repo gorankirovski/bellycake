@@ -44,13 +44,17 @@ const NewProduct = () => {
 
   useEffect(() => {
     if (error) {
-      toast.error(error);
+      toast.error(error, {
+        className: "myToast",
+      });
       dispatch(clearErrors());
     }
 
     if (success) {
       navigate("/admin/products");
-      toast.success("Product created successfully");
+      toast.success("Product created successfully", {
+        className: "myToast",
+      });
       dispatch({ type: NEW_PRODUCT_RESET });
     }
   }, [dispatch, toast, error, success, match.id]);

@@ -1,13 +1,13 @@
 import React from 'react'
 import './PageHader.css';
-const PageHader = ({imgNo = 1, title = 'stayHome'}) => {
-
-    const imgUrl = `/assets/banner/b${imgNo}.jpg`
+const PageHader = () => {
   return (
 
-        <section id='page-header' style={{backgroundImage: `url(${imgUrl})` }}>
-            <h2>#{title}</h2>
-            <p>Save up to 70% off!</p>
+        <section id='page-header' style={{backgroundImage: `url(/assets/doodlebg.png)` }}>
+          <div className='cartBoxText'>
+            <h2><b>#Cart</b></h2>
+            <p><b>Save up to 70% off!</b></p>
+          </div>
         </section>
   )
 }

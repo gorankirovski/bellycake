@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { MetaData } from "../../../allComponents";
 
-import { BsQuestionCircle } from "react-icons/bs";
+import { MdPassword } from "react-icons/md";
 
 import { useDispatch, useSelector } from "react-redux";
 import { forgotPassword, clearErrors } from "../../../../actions/userActions";
@@ -22,12 +22,16 @@ const ForgotPassword = () => {
   );
   useEffect(() => {
       if (error) {
-        toast.error(error);
+        toast.error(error, {
+        className: "myToast",
+      });
       dispatch(clearErrors());
     }
 
     if (message) {
-      toast.success(message);
+      toast.success(message, {
+        className: "myToast",
+      });
     }
   }, [dispatch, toast, error, message]);
 
@@ -42,37 +46,22 @@ const ForgotPassword = () => {
   return (
     <>
       <MetaData title={"Change Password"} />
-      <h2 className="title">Forgot Password</h2>
-      <div className="profile__box">
         <div className="LOGIN_BOX">
-        <img
-            src="https://res.cloudinary.com/hateybazarey/image/upload/v1675351981/forgot_kxjbzx.gif"
-            width="520"
-            height="540"
-            className="video__Login"
-            alt="forgot password image"
-            draggable="false"
-          />
-
           <form
-            className="login register Update_BOX"
+            className="login"
             onSubmit={submitHandler}
             encType="multipart/form-data"
-            style={{marginLeft: '50px'}}
           >
-          <h2 style={{marginBottom: '20px'}}> Forgot Your Password <BsQuestionCircle className="icon" /></h2>
+          <p> Forgot Your Password &nbsp;<MdPassword className="icon" /></p>
             <div className="form-group">
               <input
                 type="email"
                 id="email_field"
-                className="form-control"
                 placeholder="Enter your Email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
-
-          
 
             <input
               type="submit"
@@ -80,10 +69,7 @@ const ForgotPassword = () => {
               disabled={loading ? true : false}
             />
           </form>
-
-          
         </div>
-      </div>
     </>
   );
 };

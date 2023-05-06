@@ -39,6 +39,9 @@ import {
 } from "../constants/userConstants";
 // setting up config file
 const { URL_API } = require('../config/config.json')
+// Get user token
+const userToken = document.cookie.split('; ').find(row => row.startsWith('token=')).split('=')[1];
+
 
 // Login
 export const login = (email, password) => async (dispatch) => {
@@ -47,7 +50,7 @@ export const login = (email, password) => async (dispatch) => {
 
     const config = {
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "application/json"
       },
     };
 
@@ -56,6 +59,12 @@ export const login = (email, password) => async (dispatch) => {
       { email, password },
       config
     );
+
+    // Extract the token from the response
+    const { token } = data;
+
+    // Set the token as a cookie using JavaScript
+    document.cookie = `token=${token}`;
 
     dispatch({
       type: LOGIN_SUCCESS,
@@ -82,6 +91,11 @@ export const register = (userData) => async (dispatch) => {
 
     const { data } = await axios.post(`${URL_API}/api/v1/register`, userData, config);
 
+    // Extract the token from the response
+    const { token } = data;
+    // Set the token as a cookie using JavaScript
+    document.cookie = `token=${token}`;
+
     dispatch({
       type: REGISTER_USER_SUCCESS,
       payload: data.user,
@@ -97,8 +111,21 @@ export const register = (userData) => async (dispatch) => {
 // Load user
 export const loadUser = () => async (dispatch) => {
   try {
+    let token = ''
+    if (userToken) {
+      token = userToken
+    }
+
     dispatch({ type: LOAD_USER_REQUEST });
-    const { data } = await axios.get(`${URL_API}/api/v1/me`);
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+    };
+
+    const { data } = await axios.get(`${URL_API}/api/v1/me`, config);
     dispatch({
       type: LOAD_USER_SUCCESS,
       payload: data.user,
@@ -115,11 +142,17 @@ export const loadUser = () => async (dispatch) => {
 // Update profile
 export const updateProfile = (userData) => async (dispatch) => {
   try {
+    let token = ''
+    if (userToken) {
+      token = userToken
+    }
+    
     dispatch({ type: UPDATE_PROFILE_REQUEST });
 
     const config = {
       headers: {
         "Content-Type": "multipart/form-data",
+        "Authorization": `Bearer ${token}`
       },
     };
 
@@ -140,11 +173,17 @@ export const updateProfile = (userData) => async (dispatch) => {
 // Update password
 export const updatePassword = (passwords) => async (dispatch) => {
   try {
+    let token = ''
+    if (userToken) {
+      token = userToken
+    }
+    
     dispatch({ type: UPDATE_PASSWORD_REQUEST });
 
     const config = {
       headers: {
         "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
       },
     };
 
@@ -169,11 +208,17 @@ export const updatePassword = (passwords) => async (dispatch) => {
 // Forgot password
 export const forgotPassword = (email) => async (dispatch) => {
   try {
+    let token = ''
+    if (userToken) {
+      token = userToken
+    }
+    
     dispatch({ type: FORGOT_PASSWORD_REQUEST });
 
     const config = {
       headers: {
         "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
       },
     };
 
@@ -194,11 +239,17 @@ export const forgotPassword = (email) => async (dispatch) => {
 // Reset password
 export const resetPassword = (token, passwords) => async (dispatch) => {
   try {
+    let token = ''
+    if (userToken) {
+      token = userToken
+    }
+    
     dispatch({ type: NEW_PASSWORD_REQUEST });
 
     const config = {
       headers: {
         "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
       },
     };
 
@@ -223,7 +274,20 @@ export const resetPassword = (token, passwords) => async (dispatch) => {
 // Logout user
 export const logout = () => async (dispatch) => {
   try {
-    await axios.get(`${URL_API}/api/v1/logout`);
+    let token = ''
+    if (userToken) {
+      token = userToken
+    }
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+    };
+    
+    await axios.get(`${URL_API}/api/v1/logout`, config);
+    // Remove the token from the cookie
+    document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 
     dispatch({
       type: LOGOUT_SUCCESS,
@@ -239,9 +303,19 @@ export const logout = () => async (dispatch) => {
 // Get all users
 export const allUsers = () => async (dispatch) => {
   try {
+    let token = ''
+    if (userToken) {
+      token = userToken
+    }
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+    };
     dispatch({ type: ALL_USERS_REQUEST });
 
-    const { data } = await axios.get(`${URL_API}/api/v1/admin/users`);
+    const { data } = await axios.get(`${URL_API}/api/v1/admin/users`, config);
 
     dispatch({
       type: ALL_USERS_SUCCESS,
@@ -258,9 +332,19 @@ export const allUsers = () => async (dispatch) => {
 // Get user details - ADMIN
 export const getUserDetails = (id) => async (dispatch) => {
   try {
+    let token = ''
+    if (userToken) {
+      token = userToken
+    }
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+    };
     dispatch({ type: USER_DETAILS_REQUEST });
 
-    const { data } = await axios.get(`${URL_API}/api/v1/admin/user/${id}`);
+    const { data } = await axios.get(`${URL_API}/api/v1/admin/user/${id}`, config);
 
     dispatch({
       type: USER_DETAILS_SUCCESS,
@@ -279,9 +363,14 @@ export const updateUser = (id, userData) => async (dispatch) => {
   try {
     dispatch({ type: UPDATE_USER_REQUEST });
 
+    let token = ''
+    if (userToken) {
+      token = userToken
+    }
     const config = {
       headers: {
         "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
       },
     };
 
@@ -306,9 +395,19 @@ export const updateUser = (id, userData) => async (dispatch) => {
 // Delete user - ADMIN
 export const deleteUser = (id) => async (dispatch) => {
   try {
+    let token = ''
+    if (userToken) {
+      token = userToken
+    }
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+    };
     dispatch({ type: DELETE_USER_REQUEST });
 
-    const { data } = await axios.delete(`${URL_API}/api/v1/admin/user/${id}`);
+    const { data } = await axios.delete(`${URL_API}/api/v1/admin/user/${id}`, config);
 
     dispatch({
       type: DELETE_USER_SUCCESS,

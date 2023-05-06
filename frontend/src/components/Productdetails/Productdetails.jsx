@@ -37,16 +37,22 @@ const Productdetails = ({ match }) => {
     dispatch(getProductDetails(matchId.id));
     dispatch(getProducts());
     if (error) {
-      toast.error(error);
+      toast.error(error, {
+        className: "myToast",
+      });
     }
 
     if (reviewError) {
-      toast.error(reviewError);
+      toast.error(reviewError, {
+        className: "myToast",
+      });
       dispatch(clearErrors());
     }
 
     if (success) {
-      toast.success("Reivew posted successfully");
+      toast.success("Reivew posted successfully", {
+        className: "myToast",
+      });
       dispatch({ type: NEW_REVIEW_RESET });
     }
     // eslint-disable-next-line 
@@ -58,7 +64,9 @@ const Productdetails = ({ match }) => {
     if (count.valueAsNumber >= product.stock) {
       toast.error(
         `Our stock is ${product.stock}\n if you want more than this, please wait when our stock is enough.`
-      );
+        , {
+          className: "myToast",
+        });
       return;
     }
 
@@ -70,7 +78,9 @@ const Productdetails = ({ match }) => {
     const count = document.querySelector(".count");
 
     if (count.valueAsNumber <= 1) {
-      toast.error(`you can't select 0\n please order more than 0 quantity`);
+      toast.error(`you can't select 0\n please order more than 0 quantity`, {
+        className: "myToast",
+      });
       return;
     }
 
@@ -128,7 +138,9 @@ const Productdetails = ({ match }) => {
 
   const addToCart = () => {
     dispatch(addItemToCart(matchId.id, quantity));
-    toast.success("Item Added to Cart");
+    toast.success("Item Added to Cart", {
+      className: "myToast",
+    });
   };
 
   const currentProductCatergory = product.category;
@@ -168,7 +180,7 @@ const Productdetails = ({ match }) => {
                 <span id="no_of_reviews">({product.numOfReviews} review)</span>
               </div>
 
-              <h2>${product.price}</h2>
+              <h2>₦‎{product.price}</h2>
 
               <div className="stockCounter d-inline">
                 <span
@@ -358,7 +370,7 @@ const Productdetails = ({ match }) => {
                                   ({product.numOfReviews} review)
                                 </span>
                               </div>
-                              <h4 style={{fontSize: '20px'}}>${product.price}</h4>
+                              <h4 style={{fontSize: '20px'}}>₦‎{product.price}</h4>
                             </div>
                           </Link>
                         </div>
