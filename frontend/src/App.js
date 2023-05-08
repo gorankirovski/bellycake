@@ -89,9 +89,9 @@ function App() {
             <Route element={<ListOrders />} path="/orders/me" exact />
             <Route element={<OrderDetails />} path="/order/:id" exact />
 
-            <Route element={<Dashboard />} path="dashboard" exact />
-            <Route element={<ProductsList />} path="admin/products" exact />
-            <Route element={<NewProduct />} path="admin/product" exact />
+            <Route element={<Dashboard />} path="/dashboard" exact />
+            <Route element={<ProductsList />} path="/admin/products" exact />
+            <Route element={<NewProduct />} path="/admin/product" exact />
             <Route
               element={<UpdateProduct />}
               path="/admin/product/:id"

@@ -1,23 +1,49 @@
+.myOrdersBox {
+color: aliceblue;
+}
+.myOrdersHeader {
+    padding: 60px;
+}
+.viewOrderBtn {
+    background-color: rgb(148, 208, 188);
+    padding: 5px 10px;
+    color: black;
+    border-radius: 5px;
+}
 .per__order {
     box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
 }
 
 .order__details__container {
     margin: 20px;
+    color: aliceblue;
 }
-
-.shipping__info_order__details {
+.orderDetailsHeaderBox {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    /* background-color: rgba(41, 41, 65, 0.593); */
     padding: 20px;
+    border-radius: 5px;
 }
-
 .order__details_status {
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
+    border: 1px solid rgba(128, 128, 128, 0.251);
+    margin: 20px;
+    padding: 20px;
+    border-radius: 6px;
+    width: 400px;
 }
-
+.orderItemsH4Title {
+    background: linear-gradient(to top, rgba(49, 49, 85, 0.593), rgba(41, 41, 65, 0.593));
+    text-align: center;
+    border-radius: 100px;
+    padding: 5px;
+}
 .order__details_payment, .order__details_status_sec {
-    margin-right: 20px;
     display: flex;
     justify-self: center;
     flex-direction: column;
@@ -25,5 +51,102 @@
 }
 
 .cart__item_order__details {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin: 20px;
+}
+.orderDetailOrdersBox {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-decoration: none;
+    margin: 20px 20px 0 0;
     padding: 20px;
+    border-radius: 8px;
+    width: fit-content;
+    background-color: rgba(41, 41, 65, 0.593);
+    box-shadow: rgba(0, 0, 0, 0.57) 0px 13px 27px -5px, rgba(0, 0, 0, 0.712) 0px 8px 16px -8px;
+}
+.orderDetailOrdersBox:hover {
+    text-decoration: none;
+    background-color: rgba(47, 56, 74, 0.593);
+}
+.orderDetailOrdersImg {
+    width: 100px;
+}
+.orderDetailOrdersImg img {
+    width: 100%;
+    border-radius: 6px;
+}
+.orderDetailOrdersTxt {
+    color: aliceblue;
+    margin: 0 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.orderDetailOrdersTxt p {
+    margin: 0 0;
+}
+.orderDetailOrdersPrice {
+    background-color: rgba(128, 128, 128, 0.251);
+    border-radius: 3px;
+    padding: 3px 10px;
+    width: fit-content;
+    text-align: right;
+}
+
+
+
+/* TABLE STYLES FOR ORDERS LIST */
+.table-dark {
+    border-radius: 6px;
+    border: 1px solid gray;
+    background-color: rgba(44, 44, 57, 0.593) !important;
+    margin-top: 10px;
+}
+.dataTables_wrapper > .row {
+    justify-content: space-between;
+    flex-direction: row;
+}
+.dataTables_length > label {
+    margin-bottom: 0;
+}
+.dataTables_wrapper > .row > .col-sm-12 {
+    width: fit-content;
+}
+.custom-select {
+    width: 80px;
+}
+.mdb-datatable-filter input {
+    width: 150px;
+}
+th:first-child {
+    width: 20px !important;
+    overflow: hidden;
+    /* background-color: aliceblue; */
+}
+tb:first-child {
+    width: 20px !important;
+    overflow: hidden;
+    /* background-color: aliceblue; */
+}
+
+
+@media screen and (max-width: 768px) {
+    .orderDetailOrdersBox {
+        width: 100%;
+        margin: 10px 0 0 0;
+    }
+    .orderDetailsHeaderBox {
+        flex-direction: column;
+        margin: 20px 0;
+    }
+    .order__details_status {
+        width: 100%;
+    }
+    .myOrdersHeader {
+        padding: 20px;
+    }
 }

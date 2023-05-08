@@ -44,7 +44,7 @@
 }
 
 .login input[type=text]:hover {
-  border-color: #F44336;
+  border-color: #8aeed8;
   outline: none;
   transition: all .2s ease-in-out;
 } 
@@ -69,7 +69,7 @@
 
   .login h2 {
     margin: 20px 0 0; 
-    color: #EF5350;
+    color: #e4e4e4;
     font-size: 28px;
   }
 
@@ -134,4 +134,72 @@
 
 .newTitle {
   background:  linear-gradient(to right top, #293548, #306375, #449493, #80c39f, #d8eea7);;
+}
+
+.userSummary {
+  width: 30%;
+}
+.userSideSummary {
+  border-bottom: 1px solid rgba(128, 128, 128, 0.34);
+  margin-bottom: 20px;
+}
+.summaryBox {
+  /* border: 1px solid #5b77a2; */
+  background-color: #1d1e2e;
+  border-radius: 8px;
+  padding: 20px;
+}
+.itemPerBasket {
+  background-color: #1d1e2e;
+  border-radius: 8px;
+  width: 60%;
+}
+.imageName {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.imageNameText {
+  margin-left: 10px;
+  color: white !important;
+  text-decoration: none;
+}
+.cartxPriceText {
+  background-color: #293548;
+  padding: 5px 10px;
+  margin-top: 5px;
+  border-radius: 5px;
+}
+.itemPerBasketChild {
+  /* background-color: rgba(15, 18, 30, 1); */
+  align-items: center;
+  border-radius: 5px;
+}
+
+.dividerWide {
+  background-color: rgba(140, 140, 140, 0.19) !important;
+}
+
+.flutterBtn {
+  border-radius: 5px;
+  padding: 10px 20px;
+  background-color: #37a69b;
+}
+.flutterBtn:hover {
+  background-color: #e4e4e4;
+}
+
+@media screen and (max-width: 768px) {
+
+  .itemPerBasket {
+    width: 100%;
+  }
+  .userSummary {
+    width: 100%;
+    margin-top: 20px;
+  }
+  .imageName {
+    width: 100%;
+
+  }
 }

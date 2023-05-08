@@ -305,6 +305,7 @@ header {
 .profile {
   margin-left: 30px;
   cursor: pointer;
+  z-index: 10;
 }
 #loginSignup {
   border-radius: 90px;

@@ -1,3 +1,24 @@
-.reviews {
-    padding: 30px;
+.entireReviewPage {
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* background-color: antiquewhite; */
+    width: 100%;
+}
+.entireReviewPage h3 {
+    text-align: center;
+    box-shadow: rgba(70, 70, 118, 0.29) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+    padding: 10px;
+    font-size: 22px;
+    border-radius: 20px;
+}
+.allReviewsBox {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.singleReviewBox {
+    max-width: 300px;
 }

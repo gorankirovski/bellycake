@@ -109,7 +109,7 @@
 .specialBakes {
     height: 100vh;
     width: 100%;
-    background-color: #302e3e;
+    background-color: rgb(30, 29, 42);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -122,7 +122,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    box-shadow: 0 0 40px 3px rgba(0, 0, 0, 0.337);
+    box-shadow: 0 0 20px 3px rgba(24, 24, 34, 0.79);
     width: 100%;
 }
 .sbImgBox {
@@ -269,6 +269,7 @@
     }
     .sbContact {
         margin-right: 0;
+        padding-top: 20px;
         width: 100%;
     }
     .sbDescription {

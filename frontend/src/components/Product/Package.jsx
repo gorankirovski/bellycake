@@ -22,12 +22,12 @@ const Package = ({ product }) => {
   return (
     <div className="packageBox">
       <div className="packageCard">
-        <div className="packageImg">
+        <Link to={`/product/${product._id}`} className="packageImg">
           <span className="badgeBox newBadge">
             <MdNewReleases />&nbsp;<b>New</b>
           </span>
           <img src={`${product.images[0].url}`} alt="package" />
-        </div>
+        </Link>
         <div className="packageTxt">
           <h2 className="packageTitle">{product.name}</h2>
           <p className="packageDescription mb-0">{product.description}</p>

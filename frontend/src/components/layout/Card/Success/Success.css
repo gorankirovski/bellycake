@@ -4,28 +4,26 @@
   
   .success_box {
     /* border: 2px solid black; */
-    height: 72vh;
+    height: 80vh;
     display: flex;
     justify-content: center;
+    padding: 0 20px;
   }
 
   .thanks_massage {
-    margin-top: 120px;
-    position: relative;
-    width: 50%;
+    margin: auto;
     display: flex;
-    justify-content: space-around;
-    align-items: center;
-    gap: -100px;
     flex-direction: column;
+    justify-content: center;
+}
+.thanks_massage > h2 {
+  color: aquamarine;
 }
 .thanks_massage > p {
-    margin-top: -50px;
-    margin-bottom: 120px;
+  margin: 20px 0;
 }
 .more_shopping_btn {
-    position: absolute;
-    top: -10rem;
+  background-color: antiquewhite;
 }
 
 
@@ -72,4 +70,11 @@
 .btnss:active {
   box-shadow: #D6D6E7 0 3px 7px inset;
   transform: translateY(2px);
+}
+
+@media screen and (max-width: 768px) {
+  .thanks_massage > h2 {
+    font-size: 22px;
+  }
+  
 }

@@ -52,22 +52,21 @@ const OrderDetails = () => {
         <Loader />
       ) : (
         <div className="order__details__container">
-          <div
+          <p
             style={{
               padding: "20px",
-              color: "#000",
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              fontSize: '25px'
+              fontSize: '12px',
             }}
-          >
-            Order Id # {order._id}
-          </div>
-          <div className="d-flex justify-content-between">
+          ><u>
+            Order Id: {order._id}</u>
+          </p>
+          <div className="orderDetailsHeaderBox">
             <div className="shipping__info_order__details">
               <h4 className="mb-4">Shipping Info</h4>
-            <div style={{marginLeft: '20px'}}>
+            <div>
               <p>
                 <b>Name:</b> {user && user.name}
               </p>
@@ -79,19 +78,23 @@ const OrderDetails = () => {
                 {shippingDetails}
               </p>
               <p>
-                <b>Amount:</b> ${totalPrice}
+                <b>Amount:</b> ₦‎{totalPrice}
+              </p>
+              <p>
+                <b>Purchase Date:</b> {parchaseDate}
               </p>
               </div>
             </div>
+            <div className="dividerSpan"></div>
             <div className="order__details_status">
               <div className="order__details_payment">
-                <h4 className="my-4">Payment</h4>
+                <h4 className="my-2">Payment</h4>
                 <p className={isPaid ? "greenColor" : "redColor"}>
                   <b>{isPaid ? "PAID" : "NOT PAID"}</b>
                 </p>
               </div>
               <div className="order__details_status_sec">
-                <h4 className="my-4">Order Status</h4>
+                <h4 className="my-2">Order Status</h4>
                 <p
                   className={
                     order.orderStatus &&
@@ -106,39 +109,21 @@ const OrderDetails = () => {
             </div>
           </div>
           
-          
-          <h4 style={{marginLeft: '20px'}}>Order Purchase Date : {parchaseDate}</h4>
-        
-        <hr />
 
-          <h4 style={{marginLeft: '20px'}}>Order Items</h4>    
-          <div className="cart__item_order__details" style={{marginLeft: '20px'}}>
+          <h4 className="orderItemsH4Title">Order Items</h4>    
+          <div className="cart__item_order__details">
             {orderItems &&
               orderItems.map((item) => (
-                <div key={item.product} className="row my-5">
-                  <div className="col-4 col-lg-2">
-                  <Link to={`/product/${item.product}`} style={{color: '#000', textDecoration: 'none'    }}>
-                    <img
-                      src={item.image}
-                      alt={item.name}
-                      height="45"
-                      width="65"
-                    />
-                    </Link>
-                  </div>
-
-                  <div className="col-5 col-lg-5">
-                    <Link to={`/product/${item.product}`} style={{color: '#000', textDecoration: 'none'    }}>{item.name}</Link>
-                  </div>
-
-                  <div className="col-4 col-lg-2 mt-4 mt-lg-0">
-                    <p>₦‎{item.price}</p>
-                  </div>
-
-                  <div className="col-4 col-lg-3 mt-4 mt-lg-0">
-                    <p>{item.quantity} Piece(s)</p>
-                  </div>
-                </div>
+                <Link to={`/product/${item.product}`} key={item.product} className="orderDetailOrdersBox">
+                    <div className="orderDetailOrdersImg">
+                      <img src={item.image} alt={item.name} />
+                    </div>
+                    <div className="orderDetailOrdersTxt">
+                      <p className="orderDetailOrdersTitle"><b>{item.name}</b></p>
+                      <p className="orderDetailOrdersQty">{item.quantity} Piece(s)</p>
+                      <p className="orderDetailOrdersPrice">₦‎{item.price}</p>
+                    </div>
+                </Link>
               ))}
           </div>
           <hr />

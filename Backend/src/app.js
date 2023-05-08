@@ -13,6 +13,10 @@ const errorMiddleware = require('./middlewares/errors')
 const dotenv = require("dotenv");
 dotenv.config({ path: "src/config/.env" });
 
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", [process.env.URL_WEB]);
+  next();
+});
 app.use(express.json());
 app.use(bodyParser.json({ limit: '8mb' }));
 app.use(bodyParser.urlencoded({ limit: '8mb', extended: true }));

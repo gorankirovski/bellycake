@@ -33,21 +33,25 @@ const ListOrders = () => {
           label: "Order ID",
           field: "id",
           sort: "asc",
+          searchable: true,
         },
         {
           label: "Num of Items",
           field: "numOfItems",
           sort: "asc",
+          searchable: true
         },
         {
           label: "Amount",
           field: "amount",
           sort: "asc",
+          searchable: true
         },
         {
           label: "Status",
           field: "status",
           sort: "asc",
+          searchable: true
         },
         {
           label: "Actions",
@@ -57,6 +61,7 @@ const ListOrders = () => {
       ],
       rows: [],
     };
+    console.log(data)
     if (!orders) {
       data.rows.push({
         id: 'Empty',
@@ -81,7 +86,7 @@ const ListOrders = () => {
             <p style={{ color: "red" }}>{order.orderStatus}</p>
           ),
         actions: (
-          <Link to={`/order/${order._id}`} className="btn btn-primary" style={{background: '#3bd975'}}>
+          <Link to={`/order/${order._id}`} className="viewOrderBtn">
             <i className="fa fa-eye"></i>
           </Link>
         ),
@@ -92,10 +97,10 @@ const ListOrders = () => {
   };
 
   return (
-    <>
+    <div className="myOrdersBox">
       <MetaData title={"My Orders"} />
 
-      <h1 className="my-5 section__p1">My Orders</h1>
+      <h1 className="myOrdersHeader">My Orders</h1>
 
       {loading ? (
         <Loader />
@@ -105,10 +110,15 @@ const ListOrders = () => {
           className="px-3 section__p1 per__order"
           bordered
           striped
-          hover
+          // hover
+          responsive
+          theadTextWhite
+          tbodyTextWhite
+          dark
+          theadColor="#137a9c"
         />
       )}
-    </>
+    </div>
   );
 };
 

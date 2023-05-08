@@ -1,11 +1,12 @@
 import './ListReviews.css';
 const ListReviews = ({ reviews }) => {
     return (
-        <div class="reviews w-75">
-            <h3>Customer reviews</h3>
-            <hr />
+    <div className='entireReviewPage'>
+    <h3>Customer reviews</h3>
+    <hr />
+        <div class="allReviewsBox">
             {reviews && reviews.map(review => (
-                <div key={review._id} class="review-card my-3">
+                <div key={review._id} class="singleReviewBox">
                     <div class="rating-outer">
                         <div class="rating-inner" style={{ width: `${(review.rating / 5) * 100}%` }}></div>
                     </div>
@@ -16,6 +17,7 @@ const ListReviews = ({ reviews }) => {
                 </div>
             ))}
         </div>
+    </div>
     )
 }
 

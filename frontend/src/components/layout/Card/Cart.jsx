@@ -1,6 +1,7 @@
 import React from "react";
 import PageHader from "../PageHader/PageHader";
 import { MdOutlineShoppingCartCheckout } from "react-icons/md";
+import { VscDebugReverseContinue } from "react-icons/vsc";
 
 import "./Cart.css";
 import { FaMinus, FaPlus, FaTimes } from "react-icons/fa";
@@ -35,6 +36,10 @@ const Cart = () => {
   };
   const checkoutHandler = () => {
     navigate('/login?redirect=shipping')
+}
+
+const continueShopping = () => {
+  navigate('/shop')
 }
 
   return (
@@ -159,7 +164,14 @@ const Cart = () => {
                         <p className="orderPriceAmount text-black">₦‎{cartItems.reduce((acc, item) => acc + item.quantity * item.price, 0).toFixed(2)}</p>
                     </div>
                   </div>
-                  
+                  <button
+                    type="button"
+                    className={`btns checkOutBtn`}
+                    style={{background: '#181822', color: '#fff'}}
+                    onClick={continueShopping}
+                  >
+                    <VscDebugReverseContinue />&nbsp;Continue Shopping
+                  </button>
                   {cartItems.length === 0 ? '' : <button
                     type="button"
                     className={`btns checkOutBtn`}

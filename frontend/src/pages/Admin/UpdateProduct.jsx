@@ -12,6 +12,7 @@ import {
 } from "../../actions/productActions";
 import { UPDATE_PRODUCT_RESET } from "../../constants/productConstants";
 import { useNavigate, useParams } from "react-router-dom";
+import imageCompression from 'browser-image-compression';
 
 const UpdateProduct = () => {
   const [name, setName] = useState("");
@@ -100,7 +101,7 @@ const UpdateProduct = () => {
     productId,
   ]);
 
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
 
     const formData = new FormData();
@@ -112,10 +113,11 @@ const UpdateProduct = () => {
     formData.set("seller", seller);
 
     images.forEach((image) => {
+      console.log('loading image...')
       formData.append("images", image);
-    });
+    })
 
-    dispatch(updateProduct(product._id, formData));
+    dispatch(updateProduct(product._id, formData))
   };
 
   const onChange = (e) => {
@@ -125,7 +127,12 @@ const UpdateProduct = () => {
     setImages([]);
     setOldImages([]);
 
-    files.forEach((file) => {
+    files.forEach(async (file) => {
+      const options = {
+        maxSizeMB: 0.02,
+        maxWidthOrHeight: 800
+      }
+      const compressedFile = await imageCompression(file, options);
       const reader = new FileReader();
 
       reader.onload = () => {
@@ -134,8 +141,7 @@ const UpdateProduct = () => {
           setImages((oldArray) => [...oldArray, reader.result]);
         }
       };
-
-      reader.readAsDataURL(file);
+      reader.readAsDataURL(compressedFile);
     });
   };
 

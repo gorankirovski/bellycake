@@ -1,49 +1,56 @@
-export const compressImage = async (file, maxWidth, maxHeight, quality) => {
-    // Create a canvas element
-    const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d');
-  
-    // Create a new image object
-    const image = new Image();
-  
-    // Load the image file into the image object
-    image.src = URL.createObjectURL(file);
-  
-    // Wait for the image to load
-    await new Promise(resolve => {
-      image.onload = () => {
-        URL.revokeObjectURL(image.src);
-        resolve();
-      };
-    });
-  
-    // Get the current dimensions of the image
-    let width = image.width;
-    let height = image.height;
-  
-    // If the image is too wide, scale it down to the maxWidth while maintaining aspect ratio
-    if (width > maxWidth) {
-      height *= maxWidth / width;
-      width = maxWidth;
-    }
-  
-    // If the image is too tall, scale it down to the maxHeight while maintaining aspect ratio
-    if (height > maxHeight) {
-      width *= maxHeight / height;
-      height = maxHeight;
-    }
-  
-    // Set the canvas dimensions to the scaled down image dimensions
-    canvas.width = width;
-    canvas.height = height;
-  
-    // Draw the image onto the canvas at the scaled down size
-    ctx.drawImage(image, 0, 0, width, height);
-  
-    // Convert the canvas image to a blob with the specified quality level
-    return new Promise(resolve => {
-      canvas.toBlob(blob => {
-        resolve(new File([blob], file.name, { type: file.type }));
-      }, file.type, quality);
-    });
-  };
+export function compressImageFunction(file) {
+  const maxWidth = 800
+  const maxHeight = 800
+  const quality = 0.7
+
+  // Convert input to a File object if it's not already one
+  if (!(file instanceof File)) {
+    file = new File([file], 'image.jpg', { type: 'image/jpeg' });
+  }
+
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.src = URL.createObjectURL(file);
+    img.onload = function () {
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      const width = img.width;
+      const height = img.height;
+      let newWidth = width;
+      let newHeight = height;
+
+      // calculate the new width and height
+      if (width > height && width > maxWidth) {
+        newWidth = maxWidth;
+        newHeight = height * (maxWidth / width);
+      } else if (height > width && height > maxHeight) {
+        newHeight = maxHeight;
+        newWidth = width * (maxHeight / height);
+      } else if (width === height && width > maxWidth) {
+        newWidth = maxWidth;
+        newHeight = maxHeight;
+      }
+
+      // set canvas dimensions
+      canvas.width = newWidth;
+      canvas.height = newHeight;
+
+      // draw image on canvas
+      ctx.drawImage(img, 0, 0, newWidth, newHeight);
+
+      // get the compressed data URL
+      canvas.toBlob(
+        (blob) => {
+          const compressedFile = new File([blob], file.name, {
+            type: file.type,
+            lastModified: file.lastModified,
+          });
+          resolve(compressedFile);
+        },
+        file.type,
+        quality
+      );
+    };
+    img.onerror = reject;
+  });
+}

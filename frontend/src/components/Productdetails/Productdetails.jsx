@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-import { ListReviews, Loader } from "../allComponents";
+import { ListReviews, Loader, Product } from "../allComponents";
 import { getProducts } from "../../actions/productActions";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -11,7 +11,7 @@ import {
 } from "../../actions/productActions";
 import { MetaData } from "../allComponents";
 import { toast } from "react-hot-toast";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { addItemToCart } from "../../actions/cartActions";
 import { NEW_REVIEW_RESET } from "../../constants/productConstants";
 
@@ -22,6 +22,7 @@ const Productdetails = ({ match }) => {
   const [comment, setComment] = useState("");
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const matchId = useParams();
 
   const { user } = useSelector((state) => state.auth);
@@ -59,7 +60,7 @@ const Productdetails = ({ match }) => {
   }, [dispatch, error, toast, reviewError, matchId, success]);
 
   const increaseQty = () => {
-    const count = document.querySelector(".count");
+    const count = document.querySelector(".countProdetailsMain");
 
     if (count.valueAsNumber >= product.stock) {
       toast.error(
@@ -75,7 +76,7 @@ const Productdetails = ({ match }) => {
   };
 
   const decreaseQty = () => {
-    const count = document.querySelector(".count");
+    const count = document.querySelector(".countProdetailsMain");
 
     if (count.valueAsNumber <= 1) {
       toast.error(`you can't select 0\n please order more than 0 quantity`, {
@@ -141,6 +142,7 @@ const Productdetails = ({ match }) => {
     toast.success("Item Added to Cart", {
       className: "myToast",
     });
+    navigate("/cart");
   };
 
   const currentProductCatergory = product.category;
@@ -151,24 +153,22 @@ const Productdetails = ({ match }) => {
       {loading ? (
         <Loader />
       ) : (
-        <>
-          <div id="prodetails" className="section__p1">
-            <div className="single__pro_image">
+        <div className="prodetailsPageMainBox">
+        <h6 className="navigatedRoutes">{product.seller} / {product.category}</h6>
+          <div className="prodetailsMainPage">
+            <div className="prodetailsMainImage">
               {product.images &&
                 product.images.map((image, idx) => (
                   <img
                     key={idx}
-                    className="d-block"
                     src={image.url}
                     alt={product.title}
                     style={{ width: "100%" }}
-                    id="MainImg"
                   />
                 ))}
             </div>
 
-            <div className="single__pro_details">
-              <h6>{product.seller} / {product.category}</h6>
+            <div className="prodetailsTextMainBox">
               <h4>{product.name}</h4>
               <div className="star ratings" style={{ marginTop: "-10px" }}>
                 <div className="rating-outer">
@@ -180,11 +180,11 @@ const Productdetails = ({ match }) => {
                 <span id="no_of_reviews">({product.numOfReviews} review)</span>
               </div>
 
-              <h2>₦‎{product.price}</h2>
+              <h2 className="prodetailsMainPriceTxt">₦‎{product.price}</h2>
 
-              <div className="stockCounter d-inline">
+              <div className="stockCounterProdetailsMain">
                 <span
-                  className="btns btn-danger minus"
+                  className="minusProdetailsMain"
                   onClick={decreaseQty}
                   style={{ fontSize: "30px" }}
                 >
@@ -193,14 +193,13 @@ const Productdetails = ({ match }) => {
 
                 <input
                   type="number"
-                  className="form-control count d-inline"
+                  className="countProdetailsMain"
                   value={product.stock === 0 ? 0 : quantity}
-                  style={{ width: "56px", marginLeft: "10px" }}
                   readOnly
                 />
 
                 <span
-                  className="btns btn-success plus"
+                  className="plusProdetailsMain"
                   onClick={increaseQty}
                   style={{ marginRight: "10px", fontSize: "30px" }}
                 >
@@ -215,9 +214,10 @@ const Productdetails = ({ match }) => {
               >
                 {product.stock === 0 ? "comming soon" : "Add To Cart"}
               </button>
+            <div className="fullDetailsOfProducts">
               <h4>Product Details</h4>
-              <span>{product.description}</span>
-              <p style={{ marginTop: "20px" }}>
+              <p className="fullDetailsOfProductsTxt">{product.description}</p>
+              <p>
                 Status:{" "}
                 <strong
                   className={product.stock > 0 ? "greenColor" : "redColor"}
@@ -236,7 +236,7 @@ const Productdetails = ({ match }) => {
                     <button
                       id="review_btn"
                       type="button"
-                      className="btns"
+                      className="reviewBtnForModal"
                       data-toggle="modal"
                       data-target="#ratingModal"
                       onClick={setUserRatings}
@@ -244,28 +244,21 @@ const Productdetails = ({ match }) => {
                       Submit Your Review
                     </button>
                   ) : (
-                    <div
-                      className="alert alert-danger mt-5"
-                      type="alert"
-                      style={{ width: "250px" }}
-                    >
+                    <div>
                       <Link
                         to="/login"
-                        style={{
-                          fontWeight: "bold",
-                          textDecoration: "none",
-                          color: "#000",
-                        }}
+                        className="reviewBtnForModal"
                       >
-                        Login to post your review.
+                        Login to submit review
                       </Link>
                     </div>
                   )}
                 </>
               )}
+              </div>
 
-              <div className="row mt-2 mb-5">
-                <div className="myrating w-50">
+              {/* <div className="row mt-2 mb-5">
+                <div className="myrating w-50"> */}
                   <div
                     className="modal fade"
                     id="ratingModal"
@@ -277,7 +270,7 @@ const Productdetails = ({ match }) => {
                     <div className="modal-dialog" role="document">
                       <div className="modal-content">
                         <div className="modal-header">
-                          <h5 className="modal-title" id="ratingModalLabel">
+                          <h5 className="modal-title text-black" id="ratingModalLabel">
                             Submit Review
                           </h5>
                           <button
@@ -328,12 +321,12 @@ const Productdetails = ({ match }) => {
                       </div>
                     </div>
                   </div>
-                </div>
-              </div>
+                {/* </div>
+              </div> */}
             </div>
           </div>
 
-          <div className="combined__box_review_recoProduct">
+          <div className="customersReviewsBox">
             <div className="reviewBox">
               {" "}
               {product.reviews && product.reviews.length > 0 && (
@@ -348,31 +341,8 @@ const Productdetails = ({ match }) => {
                   <>
                     {product.category === currentProductCatergory &&
                       matchId.id !== product._id && (
-                        <div className="shop__pro_recom" style={{marginTop: '15px'}}>
-                          <Link
-                            to={`/product/${product._id}`}
-                            style={{ textDecoration: "none", color: "black" }}
-                            key={product._id}
-                          >
-                            <img src={product.images[0].url} alt="" />
-                            <div className="shop__des_reco">
-                              <h5 style={{fontSize:'15px'}}>{product.name}</h5>
-                              <div className="star ratings">
-                                <div className="rating-outer">
-                                  <div
-                                    className="rating-inner"
-                                    style={{
-                                      width: `${(product.ratings / 5) * 100}%`,
-                                    }}
-                                  ></div>
-                                </div>
-                                <span id="no_of_reviews">
-                                  ({product.numOfReviews} review)
-                                </span>
-                              </div>
-                              <h4 style={{fontSize: '20px'}}>₦‎{product.price}</h4>
-                            </div>
-                          </Link>
+                        <div className="singleRecoProductBox">
+                          <Product product={product} />
                         </div>
                       )}
                   </>
@@ -380,7 +350,7 @@ const Productdetails = ({ match }) => {
               </div>
             </div>
           </div>
-        </>
+        </div>
       )}
     </>
   );

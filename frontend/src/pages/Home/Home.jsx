@@ -8,8 +8,6 @@ import {
 import { getProducts } from "../../actions/productActions";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-// import Slider from "rc-slider";
-import "rc-slider/assets/index.css";
 import Pagination from "react-js-pagination";
 import { FaTags } from "react-icons/fa";
 import { IoStorefront } from "react-icons/io5";

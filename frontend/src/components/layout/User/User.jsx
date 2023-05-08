@@ -21,8 +21,13 @@ const User = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { user, loading } = useSelector((state) => state.auth);
-  if (user) {
+  const { user, isAuthenticated, loading } = useSelector((state) => state.auth);
+  if (isAuthenticated) {
+    if (user.role === "admin") {
+    console.log(`%c Welcome your Majesty!`, 'color: green')
+    } else {
+      console.log(`%c Welcome Customer!`, 'color: green')
+    }
     loginUser = true;
   }
   const logoutHandler = () => {
@@ -30,6 +35,8 @@ const User = () => {
     toast.success('Logged out successfully', {
       className: "myToast",
     });
+    // Remove the token from the cookie
+    document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     navigate('/login')
   };
   return (

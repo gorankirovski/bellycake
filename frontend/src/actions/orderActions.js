@@ -24,7 +24,8 @@ import {
 // setting up config file
 const { URL_API } = require('../config/config.json')
 // Get user token
-const userToken = document.cookie.split('; ').find(row => row.startsWith('token=')).split('=')[1];
+const userTokenCookie = document.cookie.split('; ').find(row => row.startsWith('token='));
+const userToken = userTokenCookie ? userTokenCookie.split('=')[1] : null;
 
 export const createOrder = (order) => async (dispatch, getState) => {
   try {

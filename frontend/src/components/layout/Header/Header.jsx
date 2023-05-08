@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { IoBagHandle } from "react-icons/io5";
 import { RiMagicFill } from "react-icons/ri";
 import { IoStorefront } from "react-icons/io5";
+// import { ScrollToTop } from "../Loader/scroll";
 
 const Header = () => {
 

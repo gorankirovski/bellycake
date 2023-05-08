@@ -90,12 +90,12 @@ exports.getSingleProduct = catchAsyncErrors(async (req, res, next) => {
 
 // Update Product   =>   /api/v1/admin/product/:id
 exports.updateProduct = catchAsyncErrors(async (req, res, next) => {
+  console.log('imaging...')
   let product = await Product.findById(req.params.id);
 
   if (!product) {
     return next(new ErrorHandler("Product not found", 404));
   }
-
   
   let images = []
   if (typeof req.body.images === 'string') {
@@ -108,7 +108,7 @@ exports.updateProduct = catchAsyncErrors(async (req, res, next) => {
 
       // Deleting images associated with the product
       for (let i = 0; i < product.images.length; i++) {
-          const result = await cloudinary.v2.uploader.destroy(product.images[i].public_id)
+          await cloudinary.v2.uploader.destroy(product.images[i].public_id)
       }
 
       let imagesLinks = [];

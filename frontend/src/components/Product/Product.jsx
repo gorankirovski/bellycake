@@ -23,7 +23,7 @@ const Product = ({ product }) => {
     toast.success("Added to Cart", {
       className: "myToast",
     });
-    // navigate("/cart");
+    navigate("/cart");
   };
   return (
     <>
@@ -37,7 +37,9 @@ const Product = ({ product }) => {
     </button>
     
       <Link to={`/product/${product._id}`} className="pro" >
+        <div className="proImageBox">
         <img src={product.images[0].url} alt="" />
+        </div>
         <div className="des">
           {/* <span>{product.seller}</span> */}
           <h5 className="productTitle">{product.name}</h5>

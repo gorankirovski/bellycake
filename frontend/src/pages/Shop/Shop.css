@@ -5,10 +5,10 @@
 
 .productCategories {
   position: sticky;
-  top: 90px;
+  top: 100px;
   left: 0;
   width: 100%;
-  z-index: 9;
+  z-index: 5;
   color: white;
   font-size: 12px;
   display: flex;
@@ -29,7 +29,7 @@
   border-right: none !important;
 }
 .shop__products {
-  padding: 4%;
+  padding: 0 4%;
   width: 100%;
 }
 #shop__product_1 {

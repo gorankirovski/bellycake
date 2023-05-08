@@ -29,31 +29,16 @@ const Shipping = () => {
     navigate("/order/confirm");
   };
   return (
-    <>
+    <div className="shippingPage">
       <MetaData title={"Shipping Info"} />
       <CheckoutSteps shipping /> 
-      <div className="LOGIN_BOX">
-        <video
-          width="520"
-          height="440"
-          muted
-          autoPlay
-          loop
-          className="video__Login"
-        >
-          <source
-            src="https://res.cloudinary.com/hateybazarey/video/upload/v1675534419/animated_medium20211108-27044-jnczo0_1_lgnbtb.mp4"
-            type="video/mp4"
-          />
-          Your browser does not support the video please update the browser.
-        </video>
+      <div className="LOGIN_BOX Shippingbox">
         <form className="login " onSubmit={submitHandler}>
-          <h2>Shipping Info</h2>
+          <h2 className="">Shipping Info</h2>
           <p>Please Enter valid address</p>
           <input
             type="text"
             id="address_field"
-            className="form-control"
             placeholder="Address"
             value={address}
             onChange={(e) => setAddress(e.target.value)}
@@ -62,7 +47,6 @@ const Shipping = () => {
           <input
             type="text"
             id="city_field"
-            className="form-control"
             placeholder="City"
             value={city}
             onChange={(e) => setCity(e.target.value)}
@@ -71,7 +55,6 @@ const Shipping = () => {
           <input
             type="phone"
             id="phone_field"
-            className="form-control"
             placeholder="Phone No"
             value={phoneNo}
             onChange={(e) => setPhoneNo(e.target.value)}
@@ -80,7 +63,6 @@ const Shipping = () => {
           <input
             type="number"
             id="postal_code_field"
-            className="form-control"
             placeholder="Postal Code"
             value={postalCode}
             onChange={(e) => setPostalCode(e.target.value)}
@@ -103,7 +85,7 @@ const Shipping = () => {
           <input type="submit" value="CONTINUE" />
         </form>
       </div>
-    </>
+    </div>
   );
 };
 
