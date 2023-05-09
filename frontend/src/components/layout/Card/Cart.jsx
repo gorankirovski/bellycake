@@ -166,7 +166,7 @@ const continueShopping = () => {
                   </div>
                   <button
                     type="button"
-                    className={`btns checkOutBtn`}
+                    className={`checkOutBtn`}
                     style={{background: '#181822', color: '#fff'}}
                     onClick={continueShopping}
                   >
@@ -174,7 +174,7 @@ const continueShopping = () => {
                   </button>
                   {cartItems.length === 0 ? '' : <button
                     type="button"
-                    className={`btns checkOutBtn`}
+                    className={`checkOutBtn`}
                     style={{background: '#327a3e', color: '#fff'}}
                     onClick={checkoutHandler}
                   >

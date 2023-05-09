@@ -20,7 +20,7 @@ const Success = () => {
           <div className='thanks_massage'>
             <h2>Thanks for shopping with us</h2>
             <p >Your order has been recieved, you will be notified upon delivery.</p>
-            <Link to='/shop' className='btnss more_shopping_btn' style={{textDecoration: 'none', color: 'black', fontWeight: 'bold'}}>Done</Link>
+            <Link to='/' className='btnss more_shopping_btn' style={{textDecoration: 'none', color: 'black', fontWeight: 'bold'}}>Done</Link>
           </div>
         </div>
     </div>

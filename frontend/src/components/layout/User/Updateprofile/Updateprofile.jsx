@@ -13,6 +13,7 @@ import {
 } from "../../../../actions/userActions";
 import { UPDATE_PROFILE_RESET } from "../../../../constants/userConstants";
 import { toast } from "react-hot-toast";
+import imageCompression from 'browser-image-compression';
 
 const Updateprofile = () => {
   const [name, setName] = useState("");
@@ -64,7 +65,12 @@ const Updateprofile = () => {
     dispatch(updateProfile(formData));
   };
 
-  const onChange = (e) => {
+  const onChange = async (e) => {
+    const options = {
+      maxSizeMB: 0.02,
+      maxWidthOrHeight: 800
+    }
+    const compressedFile = await imageCompression(e.target.files[0], options);
     const reader = new FileReader();
 
     reader.onload = () => {
@@ -74,13 +80,12 @@ const Updateprofile = () => {
       }
     };
 
-    reader.readAsDataURL(e.target.files[0]);
+    reader.readAsDataURL(compressedFile);
   };
-
+  
   return (
     <>
       <MetaData title={"Update Profile"} />
-      <h2 className="title">Edit your Profile</h2>
       <div className="profile__box">
         <div className="LOGIN_BOX">
           <form
@@ -89,6 +94,7 @@ const Updateprofile = () => {
             encType="multipart/form-data"
           >
             <h2><FaUserCircle className="icon" /> Hi, {user?.name} </h2>
+            <p className="">Edit your Profile</p>
             <label style={{ textAlign: "center", fontWeight: "bold" }}>
               {user.role === "admin" ? "( Admin )" : ""}
             </label>
@@ -96,7 +102,6 @@ const Updateprofile = () => {
               <input
                 type="name"
                 id="name_field"
-                className="form-control"
                 name="name"
                 placeholder="Name"
                 value={name}
@@ -108,7 +113,6 @@ const Updateprofile = () => {
               <input
                 type="email"
                 id="email_field"
-                className="form-control"
                 name="email"
                 placeholder="Email"
                 value={email}
@@ -118,15 +122,15 @@ const Updateprofile = () => {
 
             <div className="form-group avatar_div">
               <div className="d-flex align-items-center">
-                <div>
-                  <figure className="avatar mr-3 item-rtl">
+                <div className="avatarBorder">
+                  <div className="avatar__profile">
                     <img
                       src={avatarPreview}
                       className="rounded-circle"
                       alt="Avatar Preview"
                       style={{ width: "100px" }}
                     />
-                  </figure>
+                  </div>
                 </div>
                 <div className="custom-file">
                   <input
@@ -150,15 +154,6 @@ const Updateprofile = () => {
               disabled={loading ? true : false}
             />
           </form>
-
-          <img
-            src="https://res.cloudinary.com/hateybazarey/image/upload/v1675327743/image_processing20230201-31279-1a43vmw_swv7ca.gif"
-            width="520"
-            height="440"
-            className="video__Login"
-            alt="update profile animation"
-            draggable='false'
-          />
         </div>
       </div>
     </>

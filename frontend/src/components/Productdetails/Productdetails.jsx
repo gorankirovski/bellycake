@@ -208,7 +208,7 @@ const Productdetails = ({ match }) => {
               </div>
 
               <button
-                className={product.stock === 0 ? "disableBtn" : "btns"}
+                className={product.stock === 0 ? "disableBtn" : "cartBtn"}
                 disabled={product.stock === 0}
                 onClick={addToCart}
               >

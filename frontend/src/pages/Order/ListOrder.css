@@ -102,9 +102,10 @@ color: aliceblue;
 /* TABLE STYLES FOR ORDERS LIST */
 .table-dark {
     border-radius: 6px;
-    border: 1px solid gray;
-    background-color: rgba(44, 44, 57, 0.593) !important;
-    margin-top: 10px;
+    /* border: 1px solid gray; */
+    /* border-bottom: none; */
+    background-color: rgba(44, 44, 57, 0) !important;
+    margin: 10px 0;
 }
 .dataTables_wrapper > .row {
     justify-content: space-between;
@@ -122,19 +123,36 @@ color: aliceblue;
 .mdb-datatable-filter input {
     width: 150px;
 }
-th:first-child {
-    width: 20px !important;
-    overflow: hidden;
-    /* background-color: aliceblue; */
+th {
+    background-color: rgb(46, 52, 67);
 }
-tb:first-child {
-    width: 20px !important;
-    overflow: hidden;
-    /* background-color: aliceblue; */
+th:first-child {
+    display: none;
+}
+td:first-child {
+    display: none;
+}
+td:nth-child(2) {
+    height: 100%;
 }
 
 
 @media screen and (max-width: 768px) {
+    td {
+        font-size: 14px;
+    }
+    th:first-child {
+        display: table-cell;
+    }
+    td:first-child {
+        display: table-cell;
+    }
+    td:nth-child(2) {
+    display: none;
+    }
+    th:nth-child(1) {
+    display: none;
+    }
     .orderDetailOrdersBox {
         width: 100%;
         margin: 10px 0 0 0;

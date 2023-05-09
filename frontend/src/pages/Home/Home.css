@@ -260,6 +260,9 @@
   }
 
   @media screen and (max-width: 768px) {
+    .specialBakes {
+        padding: 0 20px;
+    }
     .specialBakesCard {
         padding: 8% 4%;
         flex-direction: column-reverse;

@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { newProduct, clearErrors } from "../../actions/productActions";
 import { NEW_PRODUCT_RESET } from "../../constants/productConstants";
 import { useNavigate, useParams } from "react-router-dom";
+import imageCompression from 'browser-image-compression';
 
 const NewProduct = () => {
   const [name, setName] = useState("");
@@ -83,7 +84,12 @@ const NewProduct = () => {
     setImagesPreview([]);
     setImages([]);
 
-    files.forEach((file) => {
+    files.forEach(async (file) => {
+      const options = {
+        maxSizeMB: 0.02,
+        maxWidthOrHeight: 800
+      }
+      const compressedFile = await imageCompression(file, options);
       const reader = new FileReader();
 
       reader.onload = () => {
@@ -92,8 +98,7 @@ const NewProduct = () => {
           setImages((oldArray) => [...oldArray, reader.result]);
         }
       };
-
-      reader.readAsDataURL(file);
+      reader.readAsDataURL(compressedFile);
     });
   };
 

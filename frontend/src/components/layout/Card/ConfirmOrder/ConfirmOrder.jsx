@@ -17,7 +17,7 @@ const ConfirmOrder = () => {
     (acc, item) => acc + item.price * item.quantity,
     0
   );
-  const shippingPrice = itemsPrice > 200 ? 0 : 25;
+  const shippingPrice = itemsPrice > 5000 ? 0 : 0;
   const taxPrice = Number((0.05 * itemsPrice).toFixed(2));
   const totalPrice = (itemsPrice + shippingPrice + taxPrice).toFixed(2);
 
@@ -32,6 +32,40 @@ const ConfirmOrder = () => {
     sessionStorage.setItem("orderInfo", JSON.stringify(data));
     navigate("/payment");
   };
+
+  const calcShipping = () => {
+    // Define your store and shipping addresses
+    const storeAddress = "1600 Amphitheatre Parkway, Mountain View, CA";
+    const shippingAddress = "123 Main St, San Francisco, CA";
+
+    // Define your Google Maps API key
+    const apiKey = "your_api_key_here";
+
+    // Define your exchange rate between kilometers and Naira
+    const exchangeRate = 120; // 120 Naira per kilometer
+
+    // Send a request to the Google Maps API to calculate the distance between the two addresses
+    const url = `https://maps.googleapis.com/maps/api/distancematrix/json?origins=${encodeURIComponent(storeAddress)}&destinations=${encodeURIComponent(shippingAddress)}&key=${apiKey}`;
+    fetch(url)
+      .then(response => response.json())
+      .then(data => {
+        // Extract the distance from the API response
+        const distance = data.rows[0].elements[0].distance.value / 1000; // Distance in kilometers
+
+        // Apply a 5% shipping rate to the distance
+        const shippingFee = distance * 0.05;
+
+        // Convert the shipping fee from kilometers to Naira using the exchange rate
+        const shippingFeeInNaira = shippingFee * exchangeRate;
+
+        // Print the calculated shipping fee
+        console.log(`Shipping fee: ${shippingFeeInNaira} Naira`);
+      })
+      .catch(error => {
+        // Handle errors or exceptions that arise when communicating with the API
+        console.error(error);
+      });
+  }
 
   return (
     <>
@@ -88,8 +122,8 @@ const ConfirmOrder = () => {
               <span className="order-summary-values">₦‎{itemsPrice}</span>
             </p>
             <p>
-              Shipping:{" "}
-              <span className="order-summary-values">₦‎{shippingPrice}</span>
+              Quality assurance:{" "}
+              <span className="order-summary-values">₦‎{shippingPrice} <b style={{color: 'green'}}>Free</b></span>
             </p>
             <p>
               Tax: <span className="order-summary-values">₦‎{taxPrice}</span>
@@ -104,7 +138,7 @@ const ConfirmOrder = () => {
             <hr />
             <button
               id="checkout_btn"
-              className="btns "
+              className="proceedBtn "
               onClick={processToPayment}
             >
               Proceed to Payment

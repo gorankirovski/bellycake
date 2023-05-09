@@ -41,6 +41,10 @@ header {
 }
 .navIcons {
   margin-right: 30px;
+  text-decoration: none;
+}
+.navIcons:hover {
+  text-decoration: none;
 }
 .navIcons:hover {
   color: white;
@@ -133,12 +137,28 @@ header {
 .card {
   position: relative;
   cursor: pointer;
+}
+.iconShopcard {
+  position: relative;
+  cursor: pointer;
+}
+.iconcard {
+  position: relative;
+  cursor: pointer;
   background-color: #12192a00;
+  display: flex;
+  flex-direction: row !important;
+  white-space: nowrap;
+  align-items: center;
+  text-decoration: none;
+}
+.iconcard:hover {
+  text-decoration: none;
 }
 .cardIcon {
   font-size: 25px;
 }
-.card span {
+.iconShopcard span {
   position: absolute;
   top: -10px;
   right: -10px;
@@ -301,7 +321,15 @@ header {
 }
 
 /* User */
-
+.navImage {
+  text-decoration: none;
+  outline: none;
+  text-decoration: none;
+}
+.navImage:focus {
+  text-decoration: none;
+  outline: none;
+}
 .profile {
   margin-left: 30px;
   cursor: pointer;
@@ -329,13 +357,13 @@ header {
   object-fit: cover;
 }
 .openProfile {
-  color: #000;
+  color: #000000;
   box-shadow: 0 2px 4px rgb(0 0 0 / 8%);
   position: absolute;
   top: 80px;
   right: 10px;
   width: 250px;
-  background: #fff;
+  background: #b5b8c2;
   margin-top: 15px;
 }
 .openProfile .box {
@@ -343,8 +371,12 @@ header {
   align-items: center;
   width: 100%;
   margin-top: 10px;
-  padding: 5px;
+  padding: 15px;
+  border-radius: 5px;
   transition: 0.5s;
+}
+.openProfile .box:hover {
+  background-color: #c3d5e2;
 }
 .icon {
   font-size: 20px;
@@ -368,6 +400,16 @@ header.active {
   z-index: 9999;
   background: #12192a;
 }
+
+/* SEPERATE SREEN ELEMENTS */
+.forPhone {
+  display: none;
+}
+.forPc {
+  display: flex;
+}
+
+
 
 @media screen and (max-width: 768px) {
   header {
@@ -405,6 +447,12 @@ header.active {
   }
   .profile {
     margin-left: 25px;
+  }
+  .forPhone {
+    display: flex;
+  }
+  .forPc {
+    display: none;
   }
 }
 .profile a {

@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { register, clearErrors } from "../../../../actions/userActions";
 
 import { toast } from "react-hot-toast";
+import imageCompression from 'browser-image-compression';
 
 import "../Login/Login.css";
 
@@ -54,8 +55,13 @@ const Register = () => {
     dispatch(register(formData));
   };
 
-  const onChange = (e) => {
+  const onChange = async (e) => {
     if (e.target.name === "avatar") {
+      const options = {
+        maxSizeMB: 0.02,
+        maxWidthOrHeight: 800
+      }
+      const compressedFile = await imageCompression(e.target.files[0], options);
       const reader = new FileReader();
 
       reader.onload = () => {
@@ -65,7 +71,7 @@ const Register = () => {
         }
       };
 
-      reader.readAsDataURL(e.target.files[0]);
+      reader.readAsDataURL(compressedFile);
     } else {
       setUser({ ...user, [e.target.name]: e.target.value });
     }
@@ -124,15 +130,15 @@ const Register = () => {
 
             <div className="form-group avatar_div">
               <div className="d-flex align-items-center">
-                <div>
-                  <figure className="avatar mr-3 item-rtl">
+                    <div className="avatarBorder">
+                      <div className="avatar__profile">
                     <img
                       src={avatarPreview}
                       className="rounded-circle"
                       alt="Avatar Preview"
                       style={{ width: "100px" }}
                     />
-                  </figure>
+                  </div>
                 </div>
                 <div className="custom-file">
                   <input
@@ -169,21 +175,6 @@ const Register = () => {
               </Link>
             </div>
           </form>
-
-          <video
-            width="520"
-            height="440"
-            muted
-            autoPlay
-            loop
-            className="video__Login"
-          >
-            <source
-              src="https://cdn.dribbble.com/users/8779526/screenshots/16810267/media/d508f7a8691c991cdad8def65dd34472.mp4"
-              type="video/mp4"
-            />
-            Your browser does not support the video please update the browser.
-          </video>
         </div>
       )}
     </>

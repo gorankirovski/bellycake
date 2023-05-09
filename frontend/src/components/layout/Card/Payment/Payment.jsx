@@ -96,9 +96,13 @@ const Payment = () => {
       <MetaData title={"Payment"} />
       <CheckoutSteps shipping confirmOrder payment />
       <div className="LOGIN_BOX" id="pay_btn">
-        <div>
+        <div className="flutterBtnBox">
+          <h5 style={{color: 'white'}}>Shipping Instruction</h5>
+          <p>You shall pay the rider on delivery. Check the fee from our store to your address in the Bolt app.</p>
+          <p></p>
           <FlutterWaveButton {...fwConfig} className="flutterBtn" />
           <MdPayments />
+          <p className="securelyPay">Securely pay with flutterwave</p>
         </div>
       </div>
     </>

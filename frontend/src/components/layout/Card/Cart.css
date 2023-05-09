@@ -49,6 +49,18 @@
   color: #fff;
   background: rgb(53, 142, 53);
 }
+.cartBtn {
+  color: #000;
+  background-color: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+}
+.proceedBtn {
+  color: #000;
+  background-color: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+}
 .itemNameCart {
   color: #000;
   margin-left: 5px;
@@ -96,6 +108,9 @@
 }
 .checkOutBtn {
   width: 100%;
+  padding: 10px 20px;
+  border-radius: 5px;
+  margin-bottom: 5px;
 }
 
 
@@ -155,6 +170,9 @@
 }
 
 @media screen and (max-width: 768px) {
+  .proceedBtn {
+    width: 100%;
+  }
   .cartItemBoxForDetails {
     --gap: 10px;
     --num-col: 1;

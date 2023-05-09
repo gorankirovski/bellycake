@@ -27,19 +27,29 @@ const Header = () => {
           </Link>
         </div>
         <div className="account">
-          <Link to="/shop" className="navIcons forshop">
-            <div className="card">
+          <Link to="/shop" className="navIcons forshop forPhone">
+            <div className="iconcard">
               <IoStorefront className="cardIcon" />
             </div>
           </Link>
-          <Link to="/cookbook" className="navIcons forcook">
-            <div className="card">
+          <Link to="/cookbook" className="navIcons forcook forPhone">
+            <div className="iconcard">
               <RiMagicFill className="cardIcon" />
+            </div>
+          </Link>
+          <Link to="/shop" className="navIcons forshop forPc">
+            <div className="iconcard">
+            Shop &nbsp; <IoStorefront className="cardIcon" />
+            </div>
+          </Link>
+          <Link to="/cookbook" className="navIcons forcook forPc">
+            <div className="iconcard">
+            Cookbook &nbsp; <RiMagicFill className="cardIcon" />
             </div>
           </Link>
           <Search />
           <Link to="/cart" style={{ color: 'white'}}>
-            <div className="card">
+            <div className="iconShopcard">
               <IoBagHandle className="cardIcon cartIcon" />
               {cartItems.length === 0 ? '' : <span className="flexCenter cartCounter">{cartItems.length}</span>}
             </div>

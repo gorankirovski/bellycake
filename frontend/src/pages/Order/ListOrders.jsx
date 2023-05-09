@@ -30,13 +30,19 @@ const ListOrders = () => {
     const data = {
       columns: [
         {
-          label: "Order ID",
+          label: "ID",
           field: "id",
           sort: "asc",
           searchable: true,
         },
         {
-          label: "Num of Items",
+          label: "ID",
+          field: "idLarge",
+          sort: "asc",
+          searchable: true,
+        },
+        {
+          label: "Qty",
           field: "numOfItems",
           sort: "asc",
           searchable: true
@@ -61,10 +67,10 @@ const ListOrders = () => {
       ],
       rows: [],
     };
-    console.log(data)
     if (!orders) {
       data.rows.push({
         id: 'Empty',
+        idLarge: 'Empty',
         numOfItems: '0',
         amount: 'Null',
         status: 'Null',
@@ -74,10 +80,12 @@ const ListOrders = () => {
     }
 
     orders.forEach((order) => {
+      const shortenedOrderId = `${order._id.substring(0, 8)}...`;
       data.rows.push({
-        id: order._id,
+        id: shortenedOrderId,
+        idLarge: order._id,
         numOfItems: order.orderItems.length,
-        amount: `$${order.totalPrice}`,
+        amount: `₦‎${order.totalPrice}`,
         status:
           order.orderStatus &&
           String(order.orderStatus).includes("Delivered") ? (
@@ -92,6 +100,7 @@ const ListOrders = () => {
         ),
       });
     });
+
 
     return data;
   };

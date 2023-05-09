@@ -45,7 +45,7 @@ const User = () => {
         {loginUser ? (
           <>
             <button
-              className="img"
+              className="img navImage"
               onClick={() => setProfileOpen(!profileOpen)}
             >
               <img
@@ -58,7 +58,7 @@ const User = () => {
               <div className="openProfile boxItems" onClick={close}>
                 <div className="image">
                   <Link to="/me">
-                    <div className="img">
+                    <div className="img navImage">
                       <img
                         src={user.avatar && user.avatar.url}
                         alt={user && user.name}
@@ -67,10 +67,10 @@ const User = () => {
                   </Link>
                   <div className="text">
                     <h4>{user.name}</h4>
-                    <label>
+                    <label style={{color: 'green'}}>
                       {user && user.role === "admin"
                         ? "Admin"
-                        : "Royel Customer"}
+                        : "Customer"}
                     </label>
                   </div>
                 </div>
