@@ -1,5 +1,7 @@
 {
     "URL_API_DEV" : "https://bellycakeapi-production.up.railway.app",
     "URL_API" : "http://localhost:4000",
-    "TINIFY_API_KEY" : "vFX7fG40xGwn53gR1LTc0BPnQM5pK3jw"
+    "TINIFY_API_KEY" : "vFX7fG40xGwn53gR1LTc0BPnQM5pK3jw",
+    "GOOGLE_API_KEY" : "AIzaSyCE2tnX7PMoZd68b8cEZfD3D38wVgWnPYA",
+    "GEOAPIFY_KEY" : "4d1618c5f6444b988f5052be4b03c321"
 }

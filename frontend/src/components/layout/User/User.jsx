@@ -26,7 +26,7 @@ const User = () => {
     if (user.role === "admin") {
     console.log(`%c Welcome your Majesty!`, 'color: green')
     } else {
-      console.log(`%c Welcome Customer!`, 'color: green')
+      console.log(`%c ⏳Loading...`, 'color: green')
     }
     loginUser = true;
   }

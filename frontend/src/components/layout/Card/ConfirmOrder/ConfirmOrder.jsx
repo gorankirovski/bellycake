@@ -11,15 +11,19 @@ const ConfirmOrder = () => {
 
   const { cartItems, shippingInfo } = useSelector((state) => state.cart);
   const { user } = useSelector((state) => state.auth);
+  // Define your Google Maps API key
+  const { GOOGLE_API_KEY } = require('../../../../config/config.json')
 
   // Calculate Order Prices
   const itemsPrice = cartItems.reduce(
     (acc, item) => acc + item.price * item.quantity,
     0
   );
-  const shippingPrice = itemsPrice > 5000 ? 0 : 0;
+  // const shippingPrice = itemsPrice > 5000 ? 0 : 0;
+  const shippingPrice = parseInt(shippingInfo.ShippingCost)
   const taxPrice = Number((0.05 * itemsPrice).toFixed(2));
-  const totalPrice = (itemsPrice + shippingPrice + taxPrice).toFixed(2);
+  const totalCartPrice = itemsPrice + taxPrice + shippingPrice
+  const totalPrice = Math.round(totalCartPrice)
 
   const processToPayment = () => {
     const data = {
@@ -32,40 +36,6 @@ const ConfirmOrder = () => {
     sessionStorage.setItem("orderInfo", JSON.stringify(data));
     navigate("/payment");
   };
-
-  const calcShipping = () => {
-    // Define your store and shipping addresses
-    const storeAddress = "1600 Amphitheatre Parkway, Mountain View, CA";
-    const shippingAddress = "123 Main St, San Francisco, CA";
-
-    // Define your Google Maps API key
-    const apiKey = "your_api_key_here";
-
-    // Define your exchange rate between kilometers and Naira
-    const exchangeRate = 120; // 120 Naira per kilometer
-
-    // Send a request to the Google Maps API to calculate the distance between the two addresses
-    const url = `https://maps.googleapis.com/maps/api/distancematrix/json?origins=${encodeURIComponent(storeAddress)}&destinations=${encodeURIComponent(shippingAddress)}&key=${apiKey}`;
-    fetch(url)
-      .then(response => response.json())
-      .then(data => {
-        // Extract the distance from the API response
-        const distance = data.rows[0].elements[0].distance.value / 1000; // Distance in kilometers
-
-        // Apply a 5% shipping rate to the distance
-        const shippingFee = distance * 0.05;
-
-        // Convert the shipping fee from kilometers to Naira using the exchange rate
-        const shippingFeeInNaira = shippingFee * exchangeRate;
-
-        // Print the calculated shipping fee
-        console.log(`Shipping fee: ${shippingFeeInNaira} Naira`);
-      })
-      .catch(error => {
-        // Handle errors or exceptions that arise when communicating with the API
-        console.error(error);
-      });
-  }
 
   return (
     <>
@@ -111,19 +81,21 @@ const ConfirmOrder = () => {
               </p>
               <p>
                 <b>Address:</b>{" "}
-                {`${shippingInfo.address}, ${shippingInfo.city}, ${shippingInfo.postalCode}, ${shippingInfo.country}`}
+                {`${shippingInfo.address}`}
               </p>
             </div>
 
             <h4 className="text-white font-weight-bold">Order Summary</h4>
+
+
             <hr />
             <p>
               Subtotal:{" "}
               <span className="order-summary-values">₦‎{itemsPrice}</span>
             </p>
             <p>
-              Quality assurance:{" "}
-              <span className="order-summary-values">₦‎{shippingPrice} <b style={{color: 'green'}}>Free</b></span>
+            Shipping Fee:{" "}
+              <span className="order-summary-values">₦‎{shippingPrice} &nbsp;<b style={{color: 'green', fontSize:'12px'}}>+ Quality assurance</b></span>
             </p>
             <p>
               Tax: <span className="order-summary-values">₦‎{taxPrice}</span>
@@ -131,9 +103,9 @@ const ConfirmOrder = () => {
 
             <hr />
 
-            <p>
-              Total: <span className="order-summary-values">₦‎{totalPrice}</span>
-            </p>
+            <h4 className="text-white">
+              Total: <span className="order-summary-values" style={{color:'gold'}}>₦‎{totalPrice}</span>
+            </h4>
 
             <hr />
             <button

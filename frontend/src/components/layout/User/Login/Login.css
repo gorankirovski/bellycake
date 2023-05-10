@@ -57,7 +57,10 @@
   margin: 20px 0;
   background-color: #37a69b;
 }
-
+.login input[type=submit]:disabled {
+  background-color: #1f1f27;
+  color: #2e3542;
+}
 .login input[type=submit]:hover {
   background-color: white;
   color: black;
@@ -179,7 +182,42 @@
   align-items: center;
   border-radius: 5px;
 }
-
+#phone_field {
+  border-radius: 6px;
+}
+.showMapBtnBox {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.showMapBtn {
+  color: #676767;
+  border-bottom: 1px solid #676767;
+  margin: auto;
+}
+.mapSelector {
+  width: 300px;
+  height: 150px;
+  margin: 0;
+}
+.autocomplete {
+  max-height: 200px;
+  overflow: auto;
+}
+.autocomplete-item {
+  color: #e4e4e4;
+  background-color: #1e2839;
+  border-radius: 6px;
+  margin: 3px;
+  padding: 10px;
+  font-size: 14px;
+}
+.autocomplete-item:hover {
+  color: #cfcfcf;
+  background-color: #293548;
+  cursor: pointer;
+}
 .dividerWide {
   background-color: rgba(140, 140, 140, 0.19) !important;
 }

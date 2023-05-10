@@ -54,6 +54,13 @@ const Register = () => {
     formData.set("avatar", avatar);
     dispatch(register(formData));
   };
+  
+  const toTitleCase = (str) => {
+    return str.replace(
+      /\w\S*/g,
+      (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
+    );
+  };
 
   const onChange = async (e) => {
     if (e.target.name === "avatar") {
@@ -73,7 +80,13 @@ const Register = () => {
 
       reader.readAsDataURL(compressedFile);
     } else {
+      if (e.target.name === "name") {
+        const inputValue = e.target.value;
+        const titleCaseValue = toTitleCase(inputValue);
+        setUser({ ...user, name: titleCaseValue});
+      } else {
       setUser({ ...user, [e.target.name]: e.target.value });
+      }
     }
   };
 
@@ -89,8 +102,8 @@ const Register = () => {
             onSubmit={submitHandler}
             encType="multipart/form-data"
           >
-            <h2>Hi , Internet</h2>
-            <p>We are selling products at an affordable price.</p>
+            <h2>Hi , Stranger</h2>
+            <p>Setup your account to start enjoying discounts and freebies.</p>
 
             <div className="form-group">
               <input
